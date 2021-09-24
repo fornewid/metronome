@@ -10,6 +10,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.diffplug.spotless' version '5.12.4'
+}
+
 allprojects {
     repositories {
         google()
@@ -18,6 +22,22 @@ allprojects {
 }
 
 subprojects {
+    apply plugin: 'com.diffplug.spotless'
+    spotless {
+        kotlin {
+            target '**/*.kt'
+            ktlint(libs.versions.ktlint.get())
+            licenseHeaderFile rootProject.file('spotless/copyright.kt')
+        }
+    }
+    afterEvaluate {
+        tasks.find {
+            it.name.contains("preBuild")
+        }.each {
+            it.dependsOn spotlessApply
+        }
+    }
+
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { compile ->
         kotlinOptions {
             // Set JVM target to 1.8
@@ -26,8 +46,4 @@ subprojects {
             freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
         }
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
