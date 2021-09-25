@@ -46,6 +46,11 @@ captures/
 .idea/libraries
 .idea/caches
 .idea/modules.xml
+.idea/navEditor.xml
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/deploymentTargetDropDown.xml
+.idea/misc.xml
 !.idea/icon.png
 !.idea/icon_dark.png
 
