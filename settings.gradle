@@ -1,6 +1,7 @@
 include ':sample'
 include ':material'
 include ':ui'
+include ':internal-testutils'
 
 // Enable Gradle's version catalog support
 // https://docs.gradle.org/current/userguide/platforms.html
