@@ -42,4 +42,4 @@ truth = "com.google.truth:truth:1.1.2"
 robolectric = "org.robolectric:robolectric:4.5.1"
 
 logcat = "com.squareup.logcat:logcat:0.1"
-material-motion-compose = "com.github.fornewid.material-motion-compose:navigation:0.7.3"
+material-motion-compose = "com.github.fornewid.material-motion-compose:navigation:0.7.4"
