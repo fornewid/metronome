@@ -21,6 +21,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.get()
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -36,7 +41,14 @@ dependencies {
     // Test dependencies
     // ======================
 
+    androidTestImplementation project(':internal-testutils')
     androidTestImplementation libs.junit
+    androidTestImplementation libs.truth
+    androidTestImplementation libs.androidx.test.core
+    androidTestImplementation libs.androidx.test.rules
     androidTestImplementation libs.androidx.test.runner
     androidTestImplementation libs.compose.ui.test.junit4
+    debugImplementation libs.compose.ui.test.manifest
+
+    androidTestImplementation libs.compose.foundation.foundation
 }
