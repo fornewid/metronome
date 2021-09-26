@@ -16,13 +16,34 @@
 package soup.compose.experimental.sample.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-private val DarkColorPalette = SystemMaterialTheme.darkColors()
-private val LightColorPalette = SystemMaterialTheme.lightColors()
+private val SystemDarkColorPalette = SystemMaterialTheme.darkColors()
+private val SystemLightColorPalette = SystemMaterialTheme.lightColors()
+private val DarkColorPalette = darkColors()
+private val LightColorPalette = lightColors()
 
 @Composable
 fun SampleTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val colors = if (darkTheme) {
+        SystemDarkColorPalette
+    } else {
+        SystemLightColorPalette
+    }
+    SystemMaterialTheme(
+        colors = colors,
+        content = content
+    )
+}
+
+@Composable
+fun SampleMaterialTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -31,7 +52,7 @@ fun SampleTheme(
     } else {
         LightColorPalette
     }
-    SystemMaterialTheme(
+    MaterialTheme(
         colors = colors,
         content = content
     )
