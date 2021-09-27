@@ -45,6 +45,14 @@ import soup.compose.ui.VisibilityState
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
+fun VisibilitySample() {
+    Visibility(visibility = VisibilityState.Invisible) {
+        Text("Invisible Text")
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
 fun VisibilityDemo() {
     val options = VisibilityState.values().toList()
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(options.first()) }
@@ -58,7 +66,7 @@ fun VisibilityDemo() {
                 }
                 ColorText("Bottom", Color.Blue)
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(Modifier.height(24.dp))
 
                 Row {
                     ColorText("Left", Color.Red)
@@ -119,6 +127,7 @@ private fun BottomBar(
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Preview(name = "Light", showBackground = true)
 @Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable

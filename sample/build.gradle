@@ -28,6 +28,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.compose.get()
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'

@@ -18,6 +18,7 @@ package soup.compose.experimental.sample
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
+import soup.compose.experimental.sample.material.UnelevatedButtonDemo
 import soup.compose.experimental.sample.ui.VisibilityDemo
 import soup.compose.material.motion.navigation.MaterialMotionNavHost
 import soup.compose.material.motion.navigation.composable
@@ -30,7 +31,8 @@ data class Destination(
 ) {
     companion object {
         val all: List<Destination> = listOf(
-            Destination("ui:Visibility", "VisibilityDemo") { VisibilityDemo() }
+            Destination("ui:Visibility", "VisibilityDemo") { VisibilityDemo() },
+            Destination("material:UnelevatedButton", "UnelevatedButtonDemo") { UnelevatedButtonDemo() },
         ).sortedBy { it.key }
     }
 }

@@ -26,7 +26,7 @@ import androidx.compose.ui.util.fastMaxBy
 /**
  * [VisibilityState] contains the same three states as visibility of [android.view.View].
  *
- * @sample soup.compose.experimental.sample.ui.VisibilityDemo
+ * @sample soup.compose.experimental.sample.ui.VisibilitySample
  * @see Visibility
  */
 @ExperimentalComposeUiApi
@@ -50,7 +50,7 @@ enum class VisibilityState {
 /**
  * [Visibility] composable provides the same functionality as the visibility state of a [android.view.View].
  *
- * @sample soup.compose.experimental.sample.ui.VisibilityDemo
+ * @sample soup.compose.experimental.sample.ui.VisibilitySample
  *
  * @param visibility One of [VisibilityState.Visible], [VisibilityState.Invisible], [VisibilityState.Gone]
  * @param modifier modifier for the [Layout] created to contain the [content]
