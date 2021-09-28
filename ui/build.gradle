@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
+    id 'maven-publish'
 }
 
 android {
@@ -51,4 +52,17 @@ dependencies {
     debugImplementation libs.compose.ui.test.manifest
 
     androidTestImplementation libs.compose.foundation.foundation
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.fornewid.compose-experimental'
+                artifactId = 'ui'
+                version = '0.1.0'
+            }
+        }
+    }
 }
