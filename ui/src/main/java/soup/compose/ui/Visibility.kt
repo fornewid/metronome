@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.util.fastForEach
+import androidx.compose.ui.util.fastMap
 import androidx.compose.ui.util.fastMaxBy
 
 /**
@@ -67,31 +68,45 @@ fun Visibility(
     content: @Composable () -> Unit
 ) {
     if (visibility == VisibilityState.Visible || visibility == VisibilityState.Invisible) {
-        Layout(
-            content = { content() },
+        // Nested layout is used to show layout bounds.
+        NestedLayout(
             modifier = Modifier
                 .invisible(visibility == VisibilityState.Invisible)
-                .then(modifier)
-        ) { measurables, constraints ->
-            val placeables = measurables.map { it.measure(constraints) }
-            val maxWidth: Int = placeables.fastMaxBy { it.width }?.width ?: 0
-            val maxHeight = placeables.fastMaxBy { it.height }?.height ?: 0
-            layout(maxWidth, maxHeight) {
-                placeables.fastForEach {
-                    it.place(0, 0)
-                }
-            }
-        }
+                .then(modifier),
+            content = content
+        )
     }
 }
 
-private fun Modifier.invisible(
-    invisible: Boolean,
-): Modifier {
+private fun Modifier.invisible(invisible: Boolean): Modifier {
     return if (invisible) {
         // If invisible, only measures but not draws content.
         drawWithContent { /* drawContent() */ }
     } else {
         this
+    }
+}
+
+@Composable
+private fun NestedLayout(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Layout {
+        Layout(
+            modifier = modifier,
+            content = content
+        )
+    }
+}
+
+@Composable
+private fun Layout(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
+    Layout(modifier = modifier, content = content) { measurables, constraints ->
+        val placeables = measurables.fastMap { it.measure(constraints) }
+        val maxWidth = placeables.fastMaxBy { it.width }?.width ?: 0
+        val maxHeight = placeables.fastMaxBy { it.height }?.height ?: 0
+        layout(maxWidth, maxHeight) {
+            placeables.fastForEach { placeable ->
+                placeable.place(0, 0)
+            }
+        }
     }
 }
