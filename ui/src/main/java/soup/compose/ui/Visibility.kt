@@ -68,45 +68,28 @@ fun Visibility(
     content: @Composable () -> Unit
 ) {
     if (visibility == VisibilityState.Visible || visibility == VisibilityState.Invisible) {
-        // Nested layout is used to show layout bounds.
-        NestedLayout(
-            modifier = Modifier
-                .invisible(visibility == VisibilityState.Invisible)
-                .then(modifier),
-            content = content
-        )
-    }
-}
-
-private fun Modifier.invisible(invisible: Boolean): Modifier {
-    return if (invisible) {
-        // If invisible, only measures but not draws content.
-        drawWithContent { /* drawContent() */ }
-    } else {
-        this
-    }
-}
-
-@Composable
-private fun NestedLayout(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Layout {
         Layout(
-            modifier = modifier,
-            content = content
-        )
-    }
-}
-
-@Composable
-private fun Layout(modifier: Modifier = Modifier, content: @Composable () -> Unit) {
-    Layout(modifier = modifier, content = content) { measurables, constraints ->
-        val placeables = measurables.fastMap { it.measure(constraints) }
-        val maxWidth = placeables.fastMaxBy { it.width }?.width ?: 0
-        val maxHeight = placeables.fastMaxBy { it.height }?.height ?: 0
-        layout(maxWidth, maxHeight) {
-            placeables.fastForEach { placeable ->
-                placeable.place(0, 0)
+            content = { content() },
+            modifier = Modifier
+                .visible(visibility == VisibilityState.Visible)
+                .then(modifier)
+        ) { measurables, constraints ->
+            val placeables = measurables.fastMap { it.measure(constraints) }
+            val maxWidth: Int = placeables.fastMaxBy { it.width }?.width ?: 0
+            val maxHeight = placeables.fastMaxBy { it.height }?.height ?: 0
+            layout(maxWidth, maxHeight) {
+                placeables.fastForEach {
+                    it.place(0, 0)
+                }
             }
         }
     }
+}
+
+private fun Modifier.visible(visible: Boolean): Modifier {
+    if (visible) {
+        return this
+    }
+    // If invisible, only measures but not draws content.
+    return drawWithContent { /* drawContent() */ }
 }
