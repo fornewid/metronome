@@ -18,6 +18,29 @@ Depend on the [latest version](https://github.com/fornewid/compose-experimental/
 
 ## Usage
 
+#### [Chip](https://github.com/fornewid/compose-experimental/blob/main/material/src/main/java/soup/compose/material/chip/Chip.kt)
+
+```kotlin
+@Composable
+fun ChipSample() {
+    Chip(onClick = { /* Do something! */ }) {
+        Text(text = "Chip")
+    }
+}
+
+@Composable
+fun FilterChipSample() {
+    val (checked, onCheckedChange) = remember { mutableStateOf(true) }
+    FilterChip(
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        onCloseIconClick = { /* Do something! */ }
+    ) {
+        Text(text = "Like")
+    }
+}
+```
+
 #### [UnelevatedButton](https://github.com/fornewid/compose-experimental/blob/main/material/src/main/java/soup/compose/material/UnelevatedButton.kt)
 
 ```kotlin

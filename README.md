@@ -12,6 +12,7 @@ This library provides experimental features that is not in the [Jetpack Compose]
 
 ### [material](https://github.com/fornewid/compose-experimental/tree/main/material)
 
+- [Chip](https://github.com/fornewid/compose-experimental/blob/main/material/src/main/java/soup/compose/material/chip/Chip.kt)
 - [UnelevatedButton](https://github.com/fornewid/compose-experimental/blob/main/material/src/main/java/soup/compose/material/UnelevatedButton.kt)
 
 ### [ui](https://github.com/fornewid/compose-experimental/tree/main/ui)
