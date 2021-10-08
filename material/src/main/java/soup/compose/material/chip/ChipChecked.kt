@@ -15,34 +15,16 @@
  */
 package soup.compose.material.chip
 
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.materialIcon
 import androidx.compose.material.icons.materialPath
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.unit.dp
 
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun ChipCheckIcon(
-    modifier: Modifier = Modifier
-) {
-    Icon(
-        imageVector = Checked,
-        contentDescription = null,
-        modifier = modifier.size(24.dp),
-    )
-}
-
-private val Checked: ImageVector
+internal val ChipChecked: ImageVector
     get() {
-        if (_checked != null) {
-            return _checked!!
+        if (_chipChecked != null) {
+            return _chipChecked!!
         }
-        _checked = materialIcon(name = "Chip.Checked") {
+        _chipChecked = materialIcon(name = "Chip.Checked") {
             materialPath {
                 moveTo(9f, 16.2f)
                 lineTo(4.8f, 12f)
@@ -54,7 +36,7 @@ private val Checked: ImageVector
                 close()
             }
         }
-        return _checked!!
+        return _chipChecked!!
     }
 
-private var _checked: ImageVector? = null
+private var _chipChecked: ImageVector? = null
