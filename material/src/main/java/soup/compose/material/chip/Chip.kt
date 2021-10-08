@@ -73,6 +73,7 @@ fun FilterChip(
     } else {
         PaddingValues(start = ChipDefaults.ContentPaddingStart)
     },
+    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
 ) {
     val checkedIcon: (@Composable () -> Unit)? = if (checked) {
@@ -92,7 +93,8 @@ fun FilterChip(
         shape = shape,
         border = border,
         colors = colors,
-        contentPadding = contentPadding
+        contentPadding = contentPadding,
+        minTouchTargetSize = minTouchTargetSize
     ) {
         content()
     }
@@ -122,11 +124,17 @@ fun Chip(
     } else {
         PaddingValues(start = ChipDefaults.ContentPaddingStart)
     },
+    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
 ) {
+    val minTouchTargetSizeModifier = if (minTouchTargetSize > ChipDefaults.MinHeight) {
+        Modifier.padding(vertical = (minTouchTargetSize - ChipDefaults.MinHeight) / 2f)
+    } else {
+        Modifier
+    }
     BaseChip(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.then(minTouchTargetSizeModifier),
         enabled = enabled,
         interactionSource = interactionSource,
         elevation = elevation,
@@ -235,7 +243,8 @@ object ChipDefaults {
     internal val ContentPaddingEnd = 6.dp
     val ContentPadding = PaddingValues(start = ContentPaddingStart, end = ContentPaddingEnd)
 
-    internal val MinHeight = 32.dp
+    val MinHeight = 32.dp
+    val MinTouchTargetSize = 48.dp
 
     val TextPadding = PaddingValues(start = 8.dp, end = 6.dp)
 
