@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
@@ -49,6 +50,7 @@ import soup.compose.material.chip.ChoiceChip
 import soup.compose.material.chip.EntryChip
 import soup.compose.material.chip.FilterChip
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun EntryChipSample(text: String, enabled: Boolean) {
     val (checked, onCheckedChange) = remember { mutableStateOf(true) }
@@ -68,6 +70,7 @@ fun EntryChipSample(text: String, enabled: Boolean) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FilterChipSample(text: String, enabled: Boolean) {
     val (checked, onCheckedChange) = remember { mutableStateOf(true) }
@@ -80,6 +83,7 @@ fun FilterChipSample(text: String, enabled: Boolean) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ChoiceChipSample(text: String, enabled: Boolean) {
     val (checked, onCheckedChange) = remember { mutableStateOf(true) }
@@ -92,6 +96,7 @@ fun ChoiceChipSample(text: String, enabled: Boolean) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun ActionChipSample(text: String, enabled: Boolean) {
     ActionChip(
