@@ -32,7 +32,7 @@ fun ChipCloseIcon(
     modifier: Modifier = Modifier
 ) {
     Icon(
-        imageVector = CloseCircle,
+        imageVector = ChipCloseCircle,
         contentDescription = contentDescription,
         modifier = modifier
             .padding(horizontal = 2.dp)
@@ -40,12 +40,12 @@ fun ChipCloseIcon(
     )
 }
 
-private val CloseCircle: ImageVector
+private val ChipCloseCircle: ImageVector
     get() {
-        if (_closeCircle != null) {
-            return _closeCircle!!
+        if (_chipCloseCircle != null) {
+            return _chipCloseCircle!!
         }
-        _closeCircle = ImageVector.Builder(
+        _chipCloseCircle = ImageVector.Builder(
             name = "Chip.CloseCircle",
             defaultWidth = 18.dp,
             defaultHeight = 18.dp,
@@ -77,7 +77,7 @@ private val CloseCircle: ImageVector
                 close()
             }
         }.build()
-        return _closeCircle!!
+        return _chipCloseCircle!!
     }
 
-private var _closeCircle: ImageVector? = null
+private var _chipCloseCircle: ImageVector? = null

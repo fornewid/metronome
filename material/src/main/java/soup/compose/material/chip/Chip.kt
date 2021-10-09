@@ -16,6 +16,7 @@
 package soup.compose.material.chip
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -29,6 +30,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
@@ -52,14 +54,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
- * @sample soup.compose.experimental.sample.material.FilterChipSample
+ * @sample soup.compose.experimental.sample.material.EntryChipSample
  */
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @Composable
-fun FilterChip(
+fun EntryChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)? = null,
+    checkedIcon: @Composable () -> Unit = { Image(ChipCheckedCircle, contentDescription = null) },
     closeIcon: @Composable () -> Unit = { ChipCloseIcon(contentDescription = null) },
     onCloseIconClick: (() -> Unit)? = null,
     enabled: Boolean = true,
@@ -67,7 +71,8 @@ fun FilterChip(
     elevation: ChipElevation = ChipDefaults.elevation(),
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
-    colors: ChipColors = ChipDefaults.chipColors(),
+    colors: ChipColors = ChipDefaults.entryChipColors(),
+    rippleColor: Color = Color.Unspecified,
     contentPadding: PaddingValues = if (onCloseIconClick == null) {
         ChipDefaults.ContentPadding
     } else {
@@ -75,39 +80,130 @@ fun FilterChip(
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
-) {
-    val checkedIcon: (@Composable () -> Unit)? = if (checked) {
-        @Composable { ChipCheckIcon() }
-    } else {
-        null
-    }
-    Chip(
-        onClick = { onCheckedChange(checked.not()) },
-        modifier = modifier,
-        chipIcon = checkedIcon,
-        closeIcon = closeIcon,
-        onCloseIconClick = onCloseIconClick,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        elevation = elevation,
-        shape = shape,
-        border = border,
-        colors = colors,
-        contentPadding = contentPadding,
-        minTouchTargetSize = minTouchTargetSize
-    ) {
-        content()
-    }
-}
+) = Chip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    chipIcon = {
+        Box {
+            if (chipIcon != null) {
+                chipIcon()
+            }
+            if (checked) {
+                checkedIcon()
+            }
+        }
+    },
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = content
+)
 
 /**
- * @sample soup.compose.experimental.sample.material.ChipSample
- * @sample soup.compose.experimental.sample.material.ChipWithIconSample
- * @sample soup.compose.experimental.sample.material.ChipWithCloseIconSample
+ * @sample soup.compose.experimental.sample.material.FilterChipSample
  */
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @Composable
-fun Chip(
+fun FilterChip(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    checkedIcon: @Composable () -> Unit = { Icon(ChipChecked, contentDescription = null) },
+    closeIcon: @Composable () -> Unit = { ChipCloseIcon(contentDescription = null) },
+    onCloseIconClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    elevation: ChipElevation = ChipDefaults.elevation(),
+    shape: Shape = ChipDefaults.Shape,
+    border: BorderStroke? = null,
+    colors: ChipColors = ChipDefaults.filterChipColors(),
+    rippleColor: Color = Color.Unspecified,
+    contentPadding: PaddingValues = if (onCloseIconClick == null) {
+        ChipDefaults.ContentPadding
+    } else {
+        PaddingValues(start = ChipDefaults.ContentPaddingStart)
+    },
+    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
+    content: @Composable RowScope.() -> Unit
+) = Chip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    chipIcon = checkedIcon.takeIf { checked },
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = content
+)
+
+/**
+ * @sample soup.compose.experimental.sample.material.ChoiceChipSample
+ */
+@ExperimentalMaterialApi
+@Composable
+fun ChoiceChip(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)? = null,
+    closeIcon: @Composable () -> Unit = { ChipCloseIcon(contentDescription = null) },
+    onCloseIconClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    elevation: ChipElevation = ChipDefaults.elevation(),
+    shape: Shape = ChipDefaults.Shape,
+    border: BorderStroke? = null,
+    colors: ChipColors = ChipDefaults.choiceChipColors(),
+    rippleColor: Color = MaterialTheme.colors.primary,
+    contentPadding: PaddingValues = if (onCloseIconClick == null) {
+        ChipDefaults.ContentPadding
+    } else {
+        PaddingValues(start = ChipDefaults.ContentPaddingStart)
+    },
+    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
+    content: @Composable RowScope.() -> Unit
+) = Chip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    chipIcon = chipIcon,
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = content
+)
+
+/**
+ * @sample soup.compose.experimental.sample.material.ActionChipSample
+ */
+@ExperimentalMaterialApi
+@Composable
+fun ActionChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     chipIcon: (@Composable () -> Unit)? = null,
@@ -118,7 +214,8 @@ fun Chip(
     elevation: ChipElevation = ChipDefaults.elevation(),
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
-    colors: ChipColors = ChipDefaults.chipColors(),
+    colors: ChipColors = ChipDefaults.actionChipColors(),
+    rippleColor: Color = Color.Unspecified,
     contentPadding: PaddingValues = if (onCloseIconClick == null) {
         ChipDefaults.ContentPadding
     } else {
@@ -126,27 +223,72 @@ fun Chip(
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
+) = Chip(
+    checked = false,
+    onCheckedChange = { onClick() },
+    modifier = modifier,
+    chipIcon = chipIcon,
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = content
+)
+
+@ExperimentalMaterialApi
+@Composable
+private fun Chip(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)?,
+    closeIcon: @Composable () -> Unit,
+    onCloseIconClick: (() -> Unit)?,
+    enabled: Boolean,
+    interactionSource: MutableInteractionSource,
+    elevation: ChipElevation,
+    shape: Shape,
+    border: BorderStroke?,
+    colors: ChipColors,
+    rippleColor: Color,
+    contentPadding: PaddingValues,
+    minTouchTargetSize: Dp,
+    content: @Composable RowScope.() -> Unit
 ) {
     val minTouchTargetSizeModifier = if (minTouchTargetSize > ChipDefaults.MinHeight) {
         Modifier.padding(vertical = (minTouchTargetSize - ChipDefaults.MinHeight) / 2f)
     } else {
         Modifier
     }
-    BaseChip(
-        onClick = onClick,
+    val contentColor by colors.contentColor(enabled, checked)
+    CoreChip(
+        onClick = { onCheckedChange(checked.not()) },
         modifier = modifier.then(minTouchTargetSizeModifier),
         enabled = enabled,
         interactionSource = interactionSource,
-        elevation = elevation,
+        elevation = elevation.elevation(enabled, interactionSource).value,
         shape = shape,
         border = border,
-        colors = colors,
+        backgroundColor = colors.backgroundColor(enabled, checked).value,
+        contentColor = contentColor,
+        rippleColor = rippleColor,
         contentPadding = contentPadding
     ) {
         if (chipIcon != null) {
             chipIcon()
         }
-        Row(modifier = Modifier.padding(ChipDefaults.TextPadding)) {
+        Row(
+            modifier = Modifier
+                .padding(ChipDefaults.TextPadding)
+                .weight(1f, fill = false)
+        ) {
             content()
         }
         if (onCloseIconClick != null) {
@@ -169,31 +311,32 @@ fun Chip(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-private fun BaseChip(
+private fun CoreChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    elevation: ChipElevation = ChipDefaults.elevation(),
-    shape: Shape = ChipDefaults.Shape,
-    border: BorderStroke? = null,
-    colors: ChipColors = ChipDefaults.chipColors(),
-    contentPadding: PaddingValues = ChipDefaults.ContentPadding,
+    enabled: Boolean,
+    interactionSource: MutableInteractionSource,
+    elevation: Dp,
+    shape: Shape,
+    border: BorderStroke?,
+    backgroundColor: Color,
+    contentColor: Color,
+    rippleColor: Color,
+    contentPadding: PaddingValues,
     content: @Composable RowScope.() -> Unit
 ) {
-    val contentColor by colors.contentColor(enabled)
     Surface(
         modifier = modifier,
         shape = shape,
-        color = colors.backgroundColor(enabled).value,
+        color = backgroundColor,
         contentColor = contentColor.copy(alpha = 1f),
         border = border,
-        elevation = elevation.elevation(enabled, interactionSource).value,
-        onClick = onClick,
+        elevation = elevation,
+        onClick = { onClick() },
         enabled = enabled,
         role = Role.Button,
         interactionSource = interactionSource,
-        indication = rememberRipple()
+        indication = rememberRipple(color = rippleColor)
     ) {
         CompositionLocalProvider(LocalContentAlpha provides contentColor.alpha) {
             ProvideTextStyle(
@@ -229,10 +372,10 @@ interface ChipElevation {
 interface ChipColors {
 
     @Composable
-    fun backgroundColor(enabled: Boolean): State<Color>
+    fun backgroundColor(enabled: Boolean, checked: Boolean): State<Color>
 
     @Composable
-    fun contentColor(enabled: Boolean): State<Color>
+    fun contentColor(enabled: Boolean, checked: Boolean): State<Color>
 }
 
 object ChipDefaults {
@@ -268,7 +411,73 @@ object ChipDefaults {
     }
 
     @Composable
-    fun chipColors(
+    fun entryChipColors(
+        checkedBackgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.18f)
+            .compositeOver(MaterialTheme.colors.surface),
+        checkedContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.87f),
+        uncheckedBackgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+            .compositeOver(MaterialTheme.colors.surface),
+        uncheckedContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.87f),
+        disabledBackgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
+            .compositeOver(MaterialTheme.colors.surface),
+        disabledContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.33f)
+    ): ChipColors = DefaultChipColors(
+        checkedBackgroundColor = checkedBackgroundColor,
+        checkedContentColor = checkedContentColor,
+        uncheckedBackgroundColor = uncheckedBackgroundColor,
+        uncheckedContentColor = uncheckedContentColor,
+        disabledCheckedBackgroundColor = disabledBackgroundColor,
+        disabledCheckedContentColor = disabledContentColor,
+        disabledUncheckedBackgroundColor = disabledBackgroundColor,
+        disabledUncheckedContentColor = disabledContentColor
+    )
+
+    @Composable
+    fun filterChipColors(
+        checkedBackgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.18f)
+            .compositeOver(MaterialTheme.colors.surface),
+        checkedContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.87f),
+        uncheckedBackgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+            .compositeOver(MaterialTheme.colors.surface),
+        uncheckedContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.87f),
+        disabledBackgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
+            .compositeOver(MaterialTheme.colors.surface),
+        disabledContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.33f)
+    ): ChipColors = DefaultChipColors(
+        checkedBackgroundColor = checkedBackgroundColor,
+        checkedContentColor = checkedContentColor,
+        uncheckedBackgroundColor = uncheckedBackgroundColor,
+        uncheckedContentColor = uncheckedContentColor,
+        disabledCheckedBackgroundColor = disabledBackgroundColor,
+        disabledCheckedContentColor = disabledContentColor,
+        disabledUncheckedBackgroundColor = disabledBackgroundColor,
+        disabledUncheckedContentColor = disabledContentColor
+    )
+
+    @Composable
+    fun choiceChipColors(
+        checkedBackgroundColor: Color = MaterialTheme.colors.primary.copy(alpha = 0.24f)
+            .compositeOver(MaterialTheme.colors.surface),
+        checkedContentColor: Color = MaterialTheme.colors.primary,
+        uncheckedBackgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
+            .compositeOver(MaterialTheme.colors.surface),
+        uncheckedContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.87f),
+        disabledBackgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.12f)
+            .compositeOver(MaterialTheme.colors.surface),
+        disabledContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.33f)
+    ): ChipColors = DefaultChipColors(
+        checkedBackgroundColor = checkedBackgroundColor,
+        checkedContentColor = checkedContentColor,
+        uncheckedBackgroundColor = uncheckedBackgroundColor,
+        uncheckedContentColor = uncheckedContentColor,
+        disabledCheckedBackgroundColor = disabledBackgroundColor,
+        disabledCheckedContentColor = disabledContentColor,
+        disabledUncheckedBackgroundColor = disabledBackgroundColor,
+        disabledUncheckedContentColor = disabledContentColor
+    )
+
+    @Composable
+    fun actionChipColors(
         backgroundColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f)
             .compositeOver(MaterialTheme.colors.surface),
         contentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.87f),
@@ -276,10 +485,14 @@ object ChipDefaults {
             .compositeOver(MaterialTheme.colors.surface),
         disabledContentColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.33f)
     ): ChipColors = DefaultChipColors(
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
-        disabledBackgroundColor = disabledBackgroundColor,
-        disabledContentColor = disabledContentColor
+        checkedBackgroundColor = backgroundColor,
+        checkedContentColor = contentColor,
+        uncheckedBackgroundColor = backgroundColor,
+        uncheckedContentColor = contentColor,
+        disabledCheckedBackgroundColor = disabledBackgroundColor,
+        disabledCheckedContentColor = disabledContentColor,
+        disabledUncheckedBackgroundColor = disabledBackgroundColor,
+        disabledUncheckedContentColor = disabledContentColor
     )
 }
 
@@ -288,19 +501,36 @@ object ChipDefaults {
  */
 @Immutable
 private class DefaultChipColors(
-    private val backgroundColor: Color,
-    private val contentColor: Color,
-    private val disabledBackgroundColor: Color,
-    private val disabledContentColor: Color
+    private val checkedBackgroundColor: Color,
+    private val checkedContentColor: Color,
+    private val uncheckedBackgroundColor: Color,
+    private val uncheckedContentColor: Color,
+    private val disabledCheckedBackgroundColor: Color,
+    private val disabledCheckedContentColor: Color,
+    private val disabledUncheckedBackgroundColor: Color,
+    private val disabledUncheckedContentColor: Color
 ) : ChipColors {
+
     @Composable
-    override fun backgroundColor(enabled: Boolean): State<Color> {
-        return rememberUpdatedState(if (enabled) backgroundColor else disabledBackgroundColor)
+    override fun backgroundColor(enabled: Boolean, checked: Boolean): State<Color> {
+        return rememberUpdatedState(
+            if (enabled) {
+                if (checked) checkedBackgroundColor else uncheckedBackgroundColor
+            } else {
+                if (checked) disabledCheckedBackgroundColor else disabledUncheckedBackgroundColor
+            }
+        )
     }
 
     @Composable
-    override fun contentColor(enabled: Boolean): State<Color> {
-        return rememberUpdatedState(if (enabled) contentColor else disabledContentColor)
+    override fun contentColor(enabled: Boolean, checked: Boolean): State<Color> {
+        return rememberUpdatedState(
+            if (enabled) {
+                if (checked) checkedContentColor else uncheckedContentColor
+            } else {
+                if (checked) disabledCheckedContentColor else disabledUncheckedContentColor
+            }
+        )
     }
 
     override fun equals(other: Any?): Boolean {
@@ -309,19 +539,27 @@ private class DefaultChipColors(
 
         other as DefaultChipColors
 
-        if (backgroundColor != other.backgroundColor) return false
-        if (contentColor != other.contentColor) return false
-        if (disabledBackgroundColor != other.disabledBackgroundColor) return false
-        if (disabledContentColor != other.disabledContentColor) return false
+        if (checkedBackgroundColor != other.checkedBackgroundColor) return false
+        if (checkedContentColor != other.checkedContentColor) return false
+        if (uncheckedBackgroundColor != other.uncheckedBackgroundColor) return false
+        if (uncheckedContentColor != other.uncheckedContentColor) return false
+        if (disabledCheckedBackgroundColor != other.disabledCheckedBackgroundColor) return false
+        if (disabledCheckedContentColor != other.disabledCheckedContentColor) return false
+        if (disabledUncheckedBackgroundColor != other.disabledUncheckedBackgroundColor) return false
+        if (disabledUncheckedContentColor != other.disabledUncheckedContentColor) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        var result = backgroundColor.hashCode()
-        result = 31 * result + contentColor.hashCode()
-        result = 31 * result + disabledBackgroundColor.hashCode()
-        result = 31 * result + disabledContentColor.hashCode()
+        var result = checkedBackgroundColor.hashCode()
+        result = 31 * result + checkedContentColor.hashCode()
+        result = 31 * result + uncheckedBackgroundColor.hashCode()
+        result = 31 * result + uncheckedContentColor.hashCode()
+        result = 31 * result + disabledCheckedBackgroundColor.hashCode()
+        result = 31 * result + disabledCheckedContentColor.hashCode()
+        result = 31 * result + disabledUncheckedBackgroundColor.hashCode()
+        result = 31 * result + disabledUncheckedContentColor.hashCode()
         return result
     }
 }
