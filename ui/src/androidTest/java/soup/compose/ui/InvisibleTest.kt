@@ -42,7 +42,7 @@ import org.junit.runner.RunWith
 import soup.compose.experimental.internal.test.assertPixelOfCenter
 
 @RunWith(AndroidJUnit4::class)
-class VisibilityTest {
+class InvisibleTest {
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -63,8 +63,8 @@ class VisibilityTest {
     @OptIn(ExperimentalComposeUiApi::class)
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O) // captureToImage is SDK 26+
-    fun visibility_switchVisibilityState() {
-        var visibilityState by mutableStateOf(VisibilityState.Visible)
+    fun invisible_switchInvisibleState() {
+        var invisible by mutableStateOf(false)
 
         composeTestRule.setContent {
             // Red color is displayed only when Green Box is Invisible.
@@ -76,7 +76,7 @@ class VisibilityTest {
             ) {
 
                 // Green Box is displayed on Visible only.
-                Visibility(visibility = visibilityState) {
+                Invisible(invisible = invisible) {
                     Box(
                         modifier = Modifier
                             .size(20.dp)
@@ -102,7 +102,7 @@ class VisibilityTest {
             .captureToImage()
             .assertPixelOfCenter(Color.Green)
 
-        visibilityState = VisibilityState.Invisible
+        invisible = true
 
         composeTestRule.onNodeWithTag(outerTag)
             .captureToImage()
@@ -112,13 +112,14 @@ class VisibilityTest {
             .captureToImage()
             .assertPixelOfCenter(Color.Red)
 
-        visibilityState = VisibilityState.Gone
+        invisible = false
 
         composeTestRule.onNodeWithTag(outerTag)
             .captureToImage()
-            .assertPixelOfCenter(Color.Blue)
+            .assertPixelOfCenter(Color.Green)
 
         composeTestRule.onNodeWithTag(innerTag)
-            .assertDoesNotExist()
+            .captureToImage()
+            .assertPixelOfCenter(Color.Green)
     }
 }

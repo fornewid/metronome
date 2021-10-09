@@ -40,30 +40,26 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.experimental.sample.theme.SampleTheme
-import soup.compose.ui.Visibility
-import soup.compose.ui.VisibilityState
+import soup.compose.ui.Invisible
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun VisibilitySample() {
-    Visibility(visibility = VisibilityState.Invisible) {
+fun InvisibleSample() {
+    Invisible(invisible = true) {
         Text("Invisible Text")
     }
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun VisibilityDemo() {
-    val options = VisibilityState.values().toList()
-    val (selectedOption, onOptionSelected) = rememberSaveable {
-        mutableStateOf(options.first())
-    }
+fun InvisibleDemo() {
+    val (visible, onVisibleChange) = rememberSaveable { mutableStateOf(true) }
     Scaffold(
         topBar = { TopAppBar(title = { Text(text = "VisibilityDemo") }) },
         content = {
             Column(modifier = Modifier.padding(it)) {
                 ColorText("Top", Color.Red)
-                Visibility(visibility = selectedOption) {
+                Invisible(invisible = visible.not()) {
                     ColorText("Visibility", Color.Green)
                 }
                 ColorText("Bottom", Color.Blue)
@@ -72,14 +68,14 @@ fun VisibilityDemo() {
 
                 Row {
                     ColorText("Left", Color.Red)
-                    Visibility(visibility = selectedOption) {
+                    Invisible(invisible = visible.not()) {
                         ColorText("Visibility", Color.Green)
                     }
                     ColorText("Right", Color.Blue)
                 }
             }
         },
-        bottomBar = { BottomBar(options, selectedOption, onOptionSelected) }
+        bottomBar = { BottomBar(visible, onVisibleChange) }
     )
 }
 
@@ -97,31 +93,30 @@ private fun ColorText(text: String, color: Color) {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun BottomBar(
-    options: List<VisibilityState>,
-    selectedOption: VisibilityState,
-    onOptionSelected: (VisibilityState) -> Unit,
+    visible: Boolean,
+    onVisibleChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-        options.forEach { option ->
+        listOf(true, false).forEach { visibility ->
             Row(
                 Modifier
                     .fillMaxWidth()
                     .height(56.dp)
                     .selectable(
-                        selected = (option == selectedOption),
-                        onClick = { onOptionSelected(option) },
+                        selected = (visibility == visible),
+                        onClick = { onVisibleChange(visibility) },
                         role = Role.RadioButton
                     )
                     .padding(horizontal = 16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = (option == selectedOption),
+                    selected = (visibility == visible),
                     onClick = null
                 )
                 Text(
-                    text = option.name,
+                    text = if (visibility) "Visible" else "Invisible",
                     modifier = Modifier.padding(start = 16.dp)
                 )
             }
@@ -135,6 +130,6 @@ private fun BottomBar(
 @Composable
 private fun Preview() {
     SampleTheme {
-        VisibilityDemo()
+        InvisibleDemo()
     }
 }

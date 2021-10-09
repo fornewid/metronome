@@ -20,7 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import soup.compose.experimental.sample.material.ChipDemo
 import soup.compose.experimental.sample.material.UnelevatedButtonDemo
-import soup.compose.experimental.sample.ui.VisibilityDemo
+import soup.compose.experimental.sample.ui.InvisibleDemo
 import soup.compose.material.motion.navigation.MaterialMotionNavHost
 import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
@@ -32,7 +32,7 @@ data class Destination(
 ) {
     companion object {
         val all: List<Destination> = listOf(
-            Destination("ui:Visibility", "VisibilityDemo") { VisibilityDemo() },
+            Destination("ui:Invisible", "InvisibleDemo") { InvisibleDemo() },
             Destination("material:UnelevatedButton", "UnelevatedButtonDemo") { UnelevatedButtonDemo() },
             Destination("material:Chip", "ChipDemo") { ChipDemo() },
         ).sortedBy { it.key }
