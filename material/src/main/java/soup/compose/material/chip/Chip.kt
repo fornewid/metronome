@@ -21,9 +21,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -35,6 +37,7 @@ import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -50,8 +53,68 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+
+/**
+ * @sample soup.compose.experimental.sample.material.EntryChipSample
+ */
+@ExperimentalMaterialApi
+@Composable
+fun EntryChip(
+    text: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)? = null,
+    checkedIcon: @Composable () -> Unit = { Image(ChipCheckedCircle, contentDescription = null) },
+    closeIcon: @Composable () -> Unit = {
+        ChipCloseIcon(
+            contentDescription = null,
+            modifier = Modifier.padding(end = ChipDefaults.ChipEndPadding)
+        )
+    },
+    onCloseIconClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    elevation: ChipElevation = ChipDefaults.elevation(),
+    shape: Shape = ChipDefaults.Shape,
+    border: BorderStroke? = null,
+    colors: ChipColors = ChipDefaults.entryChipColors(),
+    rippleColor: Color = Color.Unspecified,
+    contentPadding: PaddingValues = if (onCloseIconClick != null) {
+        ChipDefaults.ContentPaddingWithCloseIcon
+    } else {
+        ChipDefaults.ContentPadding
+    },
+    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize
+) = EntryChip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    chipIcon = chipIcon,
+    checkedIcon = checkedIcon,
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = {
+        Text(
+            text = text,
+            modifier = Modifier.padding(ChipDefaults.TextPadding),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+)
 
 /**
  * @sample soup.compose.experimental.sample.material.EntryChipSample
@@ -64,7 +127,12 @@ fun EntryChip(
     modifier: Modifier = Modifier,
     chipIcon: (@Composable () -> Unit)? = null,
     checkedIcon: @Composable () -> Unit = { Image(ChipCheckedCircle, contentDescription = null) },
-    closeIcon: @Composable () -> Unit = { ChipCloseIcon(contentDescription = null) },
+    closeIcon: @Composable () -> Unit = {
+        ChipCloseIcon(
+            contentDescription = null,
+            modifier = Modifier.padding(end = ChipDefaults.ChipEndPadding)
+        )
+    },
     onCloseIconClick: (() -> Unit)? = null,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -73,14 +141,14 @@ fun EntryChip(
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.entryChipColors(),
     rippleColor: Color = Color.Unspecified,
-    contentPadding: PaddingValues = if (onCloseIconClick == null) {
-        ChipDefaults.ContentPadding
+    contentPadding: PaddingValues = if (onCloseIconClick != null) {
+        ChipDefaults.ContentPaddingWithCloseIcon
     } else {
-        PaddingValues(start = ChipDefaults.ContentPaddingStart)
+        ChipDefaults.ContentPadding
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
-) = Chip(
+) = BasicChip(
     checked = checked,
     onCheckedChange = onCheckedChange,
     modifier = modifier,
@@ -114,11 +182,17 @@ fun EntryChip(
 @ExperimentalMaterialApi
 @Composable
 fun FilterChip(
+    text: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     checkedIcon: @Composable () -> Unit = { Icon(ChipChecked, contentDescription = null) },
-    closeIcon: @Composable () -> Unit = { ChipCloseIcon(contentDescription = null) },
+    closeIcon: @Composable () -> Unit = {
+        ChipCloseIcon(
+            contentDescription = null,
+            modifier = Modifier.padding(end = ChipDefaults.ChipEndPadding)
+        )
+    },
     onCloseIconClick: (() -> Unit)? = null,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -127,14 +201,70 @@ fun FilterChip(
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.filterChipColors(),
     rippleColor: Color = Color.Unspecified,
-    contentPadding: PaddingValues = if (onCloseIconClick == null) {
-        ChipDefaults.ContentPadding
+    contentPadding: PaddingValues = if (onCloseIconClick != null) {
+        ChipDefaults.ContentPaddingWithCloseIcon
     } else {
-        PaddingValues(start = ChipDefaults.ContentPaddingStart)
+        ChipDefaults.ContentPadding
+    },
+    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize
+) = FilterChip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    checkedIcon = checkedIcon,
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = {
+        Text(
+            text = text,
+            modifier = Modifier.padding(ChipDefaults.TextPadding),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+)
+
+/**
+ * @sample soup.compose.experimental.sample.material.FilterChipSample
+ */
+@ExperimentalMaterialApi
+@Composable
+fun FilterChip(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    checkedIcon: @Composable () -> Unit = { Icon(ChipChecked, contentDescription = null) },
+    closeIcon: @Composable () -> Unit = {
+        ChipCloseIcon(
+            contentDescription = null,
+            modifier = Modifier.padding(end = ChipDefaults.ChipEndPadding)
+        )
+    },
+    onCloseIconClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    elevation: ChipElevation = ChipDefaults.elevation(),
+    shape: Shape = ChipDefaults.Shape,
+    border: BorderStroke? = null,
+    colors: ChipColors = ChipDefaults.filterChipColors(),
+    rippleColor: Color = Color.Unspecified,
+    contentPadding: PaddingValues = if (onCloseIconClick != null) {
+        ChipDefaults.ContentPaddingWithCloseIcon
+    } else {
+        ChipDefaults.ContentPadding
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
-) = Chip(
+) = BasicChip(
     checked = checked,
     onCheckedChange = onCheckedChange,
     modifier = modifier,
@@ -159,11 +289,17 @@ fun FilterChip(
 @ExperimentalMaterialApi
 @Composable
 fun ChoiceChip(
+    text: String,
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     chipIcon: (@Composable () -> Unit)? = null,
-    closeIcon: @Composable () -> Unit = { ChipCloseIcon(contentDescription = null) },
+    closeIcon: @Composable () -> Unit = {
+        ChipCloseIcon(
+            contentDescription = null,
+            modifier = Modifier.padding(end = ChipDefaults.ChipEndPadding)
+        )
+    },
     onCloseIconClick: (() -> Unit)? = null,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -172,14 +308,70 @@ fun ChoiceChip(
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.choiceChipColors(),
     rippleColor: Color = MaterialTheme.colors.primary,
-    contentPadding: PaddingValues = if (onCloseIconClick == null) {
-        ChipDefaults.ContentPadding
+    contentPadding: PaddingValues = if (onCloseIconClick != null) {
+        ChipDefaults.ContentPaddingWithCloseIcon
     } else {
-        PaddingValues(start = ChipDefaults.ContentPaddingStart)
+        ChipDefaults.ContentPadding
+    },
+    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize
+) = ChoiceChip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    chipIcon = chipIcon,
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = {
+        Text(
+            text = text,
+            modifier = Modifier.padding(ChipDefaults.TextPadding),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+)
+
+/**
+ * @sample soup.compose.experimental.sample.material.ChoiceChipSample
+ */
+@ExperimentalMaterialApi
+@Composable
+fun ChoiceChip(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)? = null,
+    closeIcon: @Composable () -> Unit = {
+        ChipCloseIcon(
+            contentDescription = null,
+            modifier = Modifier.padding(end = ChipDefaults.ChipEndPadding)
+        )
+    },
+    onCloseIconClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    elevation: ChipElevation = ChipDefaults.elevation(),
+    shape: Shape = ChipDefaults.Shape,
+    border: BorderStroke? = null,
+    colors: ChipColors = ChipDefaults.choiceChipColors(),
+    rippleColor: Color = MaterialTheme.colors.primary,
+    contentPadding: PaddingValues = if (onCloseIconClick != null) {
+        ChipDefaults.ContentPaddingWithCloseIcon
+    } else {
+        ChipDefaults.ContentPadding
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
-) = Chip(
+) = BasicChip(
     checked = checked,
     onCheckedChange = onCheckedChange,
     modifier = modifier,
@@ -204,10 +396,16 @@ fun ChoiceChip(
 @ExperimentalMaterialApi
 @Composable
 fun ActionChip(
+    text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     chipIcon: (@Composable () -> Unit)? = null,
-    closeIcon: @Composable () -> Unit = { ChipCloseIcon(contentDescription = null) },
+    closeIcon: @Composable () -> Unit = {
+        ChipCloseIcon(
+            contentDescription = null,
+            modifier = Modifier.padding(end = ChipDefaults.ChipEndPadding)
+        )
+    },
     onCloseIconClick: (() -> Unit)? = null,
     enabled: Boolean = true,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -216,14 +414,68 @@ fun ActionChip(
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.actionChipColors(),
     rippleColor: Color = Color.Unspecified,
-    contentPadding: PaddingValues = if (onCloseIconClick == null) {
-        ChipDefaults.ContentPadding
+    contentPadding: PaddingValues = if (onCloseIconClick != null) {
+        ChipDefaults.ContentPaddingWithCloseIcon
     } else {
-        PaddingValues(start = ChipDefaults.ContentPaddingStart)
+        ChipDefaults.ContentPadding
+    },
+    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize
+) = ActionChip(
+    onClick = onClick,
+    modifier = modifier,
+    chipIcon = chipIcon,
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = {
+        Text(
+            text = text,
+            modifier = Modifier.padding(ChipDefaults.TextPadding),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+)
+
+/**
+ * @sample soup.compose.experimental.sample.material.ActionChipSample
+ */
+@ExperimentalMaterialApi
+@Composable
+fun ActionChip(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)? = null,
+    closeIcon: @Composable () -> Unit = {
+        ChipCloseIcon(
+            contentDescription = null,
+            modifier = Modifier.padding(end = ChipDefaults.ChipEndPadding)
+        )
+    },
+    onCloseIconClick: (() -> Unit)? = null,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    elevation: ChipElevation = ChipDefaults.elevation(),
+    shape: Shape = ChipDefaults.Shape,
+    border: BorderStroke? = null,
+    colors: ChipColors = ChipDefaults.actionChipColors(),
+    rippleColor: Color = Color.Unspecified,
+    contentPadding: PaddingValues = if (onCloseIconClick != null) {
+        ChipDefaults.ContentPaddingWithCloseIcon
+    } else {
+        ChipDefaults.ContentPadding
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
-) = Chip(
+) = BasicChip(
     checked = false,
     onCheckedChange = { onClick() },
     modifier = modifier,
@@ -244,7 +496,7 @@ fun ActionChip(
 
 @ExperimentalMaterialApi
 @Composable
-private fun Chip(
+private fun BasicChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -270,7 +522,10 @@ private fun Chip(
     val contentColor by colors.contentColor(enabled, checked)
     CoreChip(
         onClick = { onCheckedChange(checked.not()) },
-        modifier = modifier.then(minTouchTargetSizeModifier),
+        modifier = modifier
+            .then(minTouchTargetSizeModifier)
+            .defaultMinSize(minHeight = ChipDefaults.MinHeight)
+            .height(IntrinsicSize.Min),
         enabled = enabled,
         interactionSource = interactionSource,
         elevation = elevation.elevation(enabled, interactionSource).value,
@@ -278,32 +533,33 @@ private fun Chip(
         border = border,
         backgroundColor = colors.backgroundColor(enabled, checked).value,
         contentColor = contentColor,
-        rippleColor = rippleColor,
-        contentPadding = contentPadding
+        rippleColor = rippleColor
     ) {
-        if (chipIcon != null) {
-            chipIcon()
-        }
-        Row(
-            modifier = Modifier
-                .padding(ChipDefaults.TextPadding)
-                .weight(1f, fill = false)
-        ) {
-            content()
-        }
-        if (onCloseIconClick != null) {
-            Box(
-                contentAlignment = Alignment.Center,
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
                 modifier = Modifier
-                    .clickable(
-                        onClick = onCloseIconClick,
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    )
-                    .fillMaxHeight()
-                    .padding(end = ChipDefaults.ContentPaddingEnd)
+                    .padding(contentPadding)
+                    .weight(1f, fill = false),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                closeIcon()
+                if (chipIcon != null) {
+                    chipIcon()
+                }
+                content()
+            }
+            if (onCloseIconClick != null) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .clickable(
+                            onClick = onCloseIconClick,
+                            indication = null,
+                            interactionSource = remember { MutableInteractionSource() }
+                        )
+                ) {
+                    closeIcon()
+                }
             }
         }
     }
@@ -322,8 +578,7 @@ private fun CoreChip(
     backgroundColor: Color,
     contentColor: Color,
     rippleColor: Color,
-    contentPadding: PaddingValues,
-    content: @Composable RowScope.() -> Unit
+    content: @Composable () -> Unit
 ) {
     Surface(
         modifier = modifier,
@@ -342,13 +597,7 @@ private fun CoreChip(
             ProvideTextStyle(
                 value = MaterialTheme.typography.body2
             ) {
-                Row(
-                    modifier = Modifier
-                        .height(ChipDefaults.MinHeight)
-                        .padding(contentPadding),
-                    verticalAlignment = Alignment.CenterVertically,
-                    content = content
-                )
+                content()
             }
         }
     }
@@ -382,9 +631,22 @@ object ChipDefaults {
 
     internal val Shape = RoundedCornerShape(percent = 50)
 
-    internal val ContentPaddingStart = 4.dp
-    internal val ContentPaddingEnd = 6.dp
-    val ContentPadding = PaddingValues(start = ContentPaddingStart, end = ContentPaddingEnd)
+    private val ChipVerticalPadding = 4.dp
+    private val ChipStartPadding = 4.dp
+    val ChipEndPadding = 6.dp
+
+    val ContentPadding = PaddingValues(
+        top = ChipVerticalPadding,
+        bottom = ChipVerticalPadding,
+        start = ChipStartPadding,
+        end = ChipEndPadding
+    )
+    val ContentPaddingWithCloseIcon = PaddingValues(
+        top = ChipVerticalPadding,
+        bottom = ChipVerticalPadding,
+        start = ChipStartPadding,
+        end = 0.dp
+    )
 
     val MinHeight = 32.dp
     val MinTouchTargetSize = 48.dp
