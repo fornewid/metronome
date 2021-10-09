@@ -80,21 +80,11 @@ fun EntryChip(
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
-) {
-    CoreChip(
-        checked = checked,
-        onCheckedChange = onCheckedChange,
-        modifier = modifier,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        elevation = elevation,
-        shape = shape,
-        border = border,
-        colors = colors,
-        rippleColor = rippleColor,
-        contentPadding = contentPadding,
-        minTouchTargetSize = minTouchTargetSize
-    ) {
+) = Chip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    chipIcon = {
         Box {
             if (chipIcon != null) {
                 chipIcon()
@@ -103,30 +93,20 @@ fun EntryChip(
                 checkedIcon()
             }
         }
-        Row(
-            modifier = Modifier
-                .padding(ChipDefaults.TextPadding)
-                .weight(1f, fill = false)
-        ) {
-            content()
-        }
-        if (onCloseIconClick != null) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .clickable(
-                        onClick = onCloseIconClick,
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    )
-                    .fillMaxHeight()
-                    .padding(end = ChipDefaults.ContentPaddingEnd)
-            ) {
-                closeIcon()
-            }
-        }
-    }
-}
+    },
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = content
+)
 
 /**
  * @sample soup.compose.experimental.sample.material.FilterChipSample
@@ -154,48 +134,24 @@ fun FilterChip(
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
-) {
-    CoreChip(
-        checked = checked,
-        onCheckedChange = onCheckedChange,
-        modifier = modifier,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        elevation = elevation,
-        shape = shape,
-        border = border,
-        colors = colors,
-        rippleColor = rippleColor,
-        contentPadding = contentPadding,
-        minTouchTargetSize = minTouchTargetSize
-    ) {
-        if (checked) {
-            checkedIcon()
-        }
-        Row(
-            modifier = Modifier
-                .padding(ChipDefaults.TextPadding)
-                .weight(1f, fill = false)
-        ) {
-            content()
-        }
-        if (onCloseIconClick != null) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .clickable(
-                        onClick = onCloseIconClick,
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    )
-                    .fillMaxHeight()
-                    .padding(end = ChipDefaults.ContentPaddingEnd)
-            ) {
-                closeIcon()
-            }
-        }
-    }
-}
+) = Chip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    chipIcon = checkedIcon.takeIf { checked },
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = content
+)
 
 /**
  * @sample soup.compose.experimental.sample.material.ChoiceChipSample
@@ -223,48 +179,24 @@ fun ChoiceChip(
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
-) {
-    CoreChip(
-        checked = checked,
-        onCheckedChange = onCheckedChange,
-        modifier = modifier,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        elevation = elevation,
-        shape = shape,
-        border = border,
-        colors = colors,
-        rippleColor = rippleColor,
-        contentPadding = contentPadding,
-        minTouchTargetSize = minTouchTargetSize
-    ) {
-        if (chipIcon != null) {
-            chipIcon()
-        }
-        Row(
-            modifier = Modifier
-                .padding(ChipDefaults.TextPadding)
-                .weight(1f, fill = false)
-        ) {
-            content()
-        }
-        if (onCloseIconClick != null) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .clickable(
-                        onClick = onCloseIconClick,
-                        indication = null,
-                        interactionSource = remember { MutableInteractionSource() }
-                    )
-                    .fillMaxHeight()
-                    .padding(end = ChipDefaults.ContentPaddingEnd)
-            ) {
-                closeIcon()
-            }
-        }
-    }
-}
+) = Chip(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
+    modifier = modifier,
+    chipIcon = chipIcon,
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = content
+)
 
 /**
  * @sample soup.compose.experimental.sample.material.ActionChipSample
@@ -291,20 +223,63 @@ fun ActionChip(
     },
     minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
+) = Chip(
+    checked = false,
+    onCheckedChange = { onClick() },
+    modifier = modifier,
+    chipIcon = chipIcon,
+    closeIcon = closeIcon,
+    onCloseIconClick = onCloseIconClick,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    elevation = elevation,
+    shape = shape,
+    border = border,
+    colors = colors,
+    rippleColor = rippleColor,
+    contentPadding = contentPadding,
+    minTouchTargetSize = minTouchTargetSize,
+    content = content
+)
+
+@ExperimentalMaterialApi
+@Composable
+private fun Chip(
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)?,
+    closeIcon: @Composable () -> Unit,
+    onCloseIconClick: (() -> Unit)?,
+    enabled: Boolean,
+    interactionSource: MutableInteractionSource,
+    elevation: ChipElevation,
+    shape: Shape,
+    border: BorderStroke?,
+    colors: ChipColors,
+    rippleColor: Color,
+    contentPadding: PaddingValues,
+    minTouchTargetSize: Dp,
+    content: @Composable RowScope.() -> Unit
 ) {
+    val minTouchTargetSizeModifier = if (minTouchTargetSize > ChipDefaults.MinHeight) {
+        Modifier.padding(vertical = (minTouchTargetSize - ChipDefaults.MinHeight) / 2f)
+    } else {
+        Modifier
+    }
+    val contentColor by colors.contentColor(enabled, checked)
     CoreChip(
-        checked = false,
-        onCheckedChange = { onClick() },
-        modifier = modifier,
+        onClick = { onCheckedChange(checked.not()) },
+        modifier = modifier.then(minTouchTargetSizeModifier),
         enabled = enabled,
         interactionSource = interactionSource,
-        elevation = elevation,
+        elevation = elevation.elevation(enabled, interactionSource).value,
         shape = shape,
         border = border,
-        colors = colors,
+        backgroundColor = colors.backgroundColor(enabled, checked).value,
+        contentColor = contentColor,
         rippleColor = rippleColor,
-        contentPadding = contentPadding,
-        minTouchTargetSize = minTouchTargetSize
+        contentPadding = contentPadding
     ) {
         if (chipIcon != null) {
             chipIcon()
@@ -337,34 +312,27 @@ fun ActionChip(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun CoreChip(
-    checked: Boolean,
-    onCheckedChange: (Boolean) -> Unit,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    elevation: ChipElevation = ChipDefaults.elevation(),
-    shape: Shape = ChipDefaults.Shape,
-    border: BorderStroke? = null,
-    colors: ChipColors,
-    rippleColor: Color = Color.Unspecified,
-    contentPadding: PaddingValues = ChipDefaults.ContentPadding,
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
+    enabled: Boolean,
+    interactionSource: MutableInteractionSource,
+    elevation: Dp,
+    shape: Shape,
+    border: BorderStroke?,
+    backgroundColor: Color,
+    contentColor: Color,
+    rippleColor: Color,
+    contentPadding: PaddingValues,
     content: @Composable RowScope.() -> Unit
 ) {
-    val minTouchTargetSizeModifier = if (minTouchTargetSize > ChipDefaults.MinHeight) {
-        Modifier.padding(vertical = (minTouchTargetSize - ChipDefaults.MinHeight) / 2f)
-    } else {
-        Modifier
-    }
-    val contentColor by colors.contentColor(enabled, checked)
     Surface(
-        modifier = modifier.then(minTouchTargetSizeModifier),
+        modifier = modifier,
         shape = shape,
-        color = colors.backgroundColor(enabled, checked).value,
+        color = backgroundColor,
         contentColor = contentColor.copy(alpha = 1f),
         border = border,
-        elevation = elevation.elevation(enabled, interactionSource).value,
-        onClick = { onCheckedChange(checked.not()) },
+        elevation = elevation,
+        onClick = { onClick() },
         enabled = enabled,
         role = Role.Button,
         interactionSource = interactionSource,
