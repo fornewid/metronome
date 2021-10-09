@@ -18,6 +18,8 @@ package soup.compose.experimental.sample.material
 import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,17 +33,24 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Switch
+import androidx.compose.material.SwitchColors
+import androidx.compose.material.SwitchDefaults
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.launch
 import soup.compose.experimental.sample.R
 import soup.compose.experimental.sample.theme.SampleMaterialTheme
 import soup.compose.experimental.sample.theme.SampleTheme
@@ -52,12 +61,13 @@ import soup.compose.material.chip.FilterChip
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun EntryChipSample(text: String, enabled: Boolean) {
+fun EntryChipSample(text: String, enabled: Boolean, onCloseIconClick: () -> Unit) {
     val (checked, onCheckedChange) = remember { mutableStateOf(true) }
     EntryChip(
+        text = text,
         checked = checked,
         onCheckedChange = onCheckedChange,
-        onCloseIconClick = { /* Do something */ },
+        onCloseIconClick = onCloseIconClick,
         chipIcon = {
             Image(
                 painterResource(R.drawable.ic_placeholder_circle_24),
@@ -65,9 +75,7 @@ fun EntryChipSample(text: String, enabled: Boolean) {
             )
         },
         enabled = enabled
-    ) {
-        Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis)
-    }
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -75,12 +83,11 @@ fun EntryChipSample(text: String, enabled: Boolean) {
 fun FilterChipSample(text: String, enabled: Boolean) {
     val (checked, onCheckedChange) = remember { mutableStateOf(true) }
     FilterChip(
+        text = text,
         checked = checked,
         onCheckedChange = onCheckedChange,
         enabled = enabled
-    ) {
-        Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis)
-    }
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -88,19 +95,19 @@ fun FilterChipSample(text: String, enabled: Boolean) {
 fun ChoiceChipSample(text: String, enabled: Boolean) {
     val (checked, onCheckedChange) = remember { mutableStateOf(true) }
     ChoiceChip(
+        text = text,
         checked = checked,
         onCheckedChange = onCheckedChange,
         enabled = enabled
-    ) {
-        Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis)
-    }
+    )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ActionChipSample(text: String, enabled: Boolean) {
+fun ActionChipSample(text: String, enabled: Boolean, onClick: () -> Unit) {
     ActionChip(
-        onClick = { /* Do something! */ },
+        text = text,
+        onClick = onClick,
         chipIcon = {
             Image(
                 painterResource(R.drawable.ic_placeholder_circle_24),
@@ -108,14 +115,15 @@ fun ActionChipSample(text: String, enabled: Boolean) {
             )
         },
         enabled = enabled
-    ) {
-        Text(text = text, maxLines = 1, overflow = TextOverflow.Ellipsis)
-    }
+    )
 }
 
 @Composable
 fun ChipDemo() {
+    val scaffoldState = rememberScaffoldState()
+    val coroutineScope = rememberCoroutineScope()
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = { TopAppBar(title = { Text(text = "ChipDemo") }) },
         content = {
             SampleMaterialTheme {
@@ -141,7 +149,15 @@ fun ChipDemo() {
                         }
 
                         Text("Entry")
-                        EntryChipSample(text, enabled)
+                        EntryChipSample(
+                            text, enabled,
+                            onCloseIconClick = {
+                                coroutineScope.launch {
+                                    scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+                                    scaffoldState.snackbarHostState.showSnackbar("Clicked close icon.")
+                                }
+                            }
+                        )
                         Spacer(Modifier.height(16.dp))
 
                         Text("Filter")
@@ -153,36 +169,79 @@ fun ChipDemo() {
                         Spacer(Modifier.height(16.dp))
 
                         Text("Action")
-                        ActionChipSample(text, enabled)
+                        ActionChipSample(
+                            text, enabled,
+                            onClick = {
+                                coroutineScope.launch {
+                                    scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
+                                    scaffoldState.snackbarHostState.showSnackbar("Activated chip.")
+                                }
+                            }
+                        )
                         Spacer(Modifier.height(16.dp))
 
                         Column(
                             modifier = Modifier.align(Alignment.CenterHorizontally),
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
-                            Row(
-                                Modifier.height(48.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text("Long text")
-                                Spacer(Modifier.size(8.dp))
-                                Switch(checked = longText, onCheckedChange = onLongTextChange)
-                            }
+                            TextSwitch(
+                                text = "Long text",
+                                checked = longText,
+                                onCheckedChange = onLongTextChange,
+                                modifier = Modifier.height(48.dp)
+                            )
                             Spacer(Modifier.height(16.dp))
-                            Row(
-                                Modifier.height(48.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Text("Enabled")
-                                Spacer(Modifier.size(8.dp))
-                                Switch(checked = enabled, onCheckedChange = onEnabledChange)
-                            }
+                            TextSwitch(
+                                text = "Enabled",
+                                checked = enabled,
+                                onCheckedChange = onEnabledChange,
+                                modifier = Modifier.height(48.dp)
+                            )
                         }
                     }
                 }
             }
         }
     )
+}
+
+@Composable
+private fun TextSwitch(
+    text: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    colors: SwitchColors = SwitchDefaults.colors(),
+    switchPadding: Dp = 3.dp,
+    textStyle: TextStyle = MaterialTheme.typography.button
+) {
+    Row(
+        modifier = modifier
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                enabled = enabled,
+                role = Role.Switch,
+                onClick = { onCheckedChange(checked.not()) }
+            ),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = text,
+            style = textStyle
+        )
+        Spacer(Modifier.size(switchPadding))
+        Switch(
+            checked = checked,
+            onCheckedChange = onCheckedChange,
+            enabled = enabled,
+            interactionSource = interactionSource,
+            colors = colors
+        )
+    }
 }
 
 @Preview(name = "Light", showBackground = true)
