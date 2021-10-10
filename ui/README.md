@@ -18,13 +18,13 @@ Depend on the [latest version](https://github.com/fornewid/compose-experimental/
 
 ## Usage
 
-#### [Visibility](https://github.com/fornewid/compose-experimental/blob/main/ui/src/main/java/soup/compose/ui/Visibility.kt)
+#### [Invisible](https://github.com/fornewid/compose-experimental/blob/main/ui/src/main/java/soup/compose/ui/Invisible.kt)
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun VisibilitySample() {
-    Visibility(visibility = VisibilityState.Invisible) {
+fun InvisibleSample() {
+    Invisible(invisible = true) {
         Text("Invisible Text")
     }
 }

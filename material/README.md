@@ -22,22 +22,42 @@ Depend on the [latest version](https://github.com/fornewid/compose-experimental/
 
 ```kotlin
 @Composable
-fun ChipSample() {
-    Chip(onClick = { /* Do something! */ }) {
-        Text(text = "Chip")
-    }
+fun ActionChipSample() {
+    ActionChip(
+        text = "ActionChip",
+        onClick = { /* Do something! */ }
+    )
+}
+
+@Composable
+fun EntryChipSample() {
+    val (checked, onCheckedChange) = remember { mutableStateOf(true) }
+    EntryChip(
+        text = "EntryChip",
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        onCloseIconClick = { /* Do something! */ }
+    )
 }
 
 @Composable
 fun FilterChipSample() {
     val (checked, onCheckedChange) = remember { mutableStateOf(true) }
     FilterChip(
+        text = "FilterChip",
         checked = checked,
-        onCheckedChange = onCheckedChange,
-        onCloseIconClick = { /* Do something! */ }
-    ) {
-        Text(text = "Like")
-    }
+        onCheckedChange = onCheckedChange
+    )
+}
+
+@Composable
+fun ChoiceChipSample() {
+    val (checked, onCheckedChange) = remember { mutableStateOf(true) }
+    ChoiceChip(
+        text = "ChoiceChip",
+        checked = checked,
+        onCheckedChange = onCheckedChange
+    )
 }
 ```
 
