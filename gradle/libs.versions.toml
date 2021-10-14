@@ -1,10 +1,10 @@
 [versions]
-compose = "1.0.3"
+compose = "1.0.4"
 
 gradlePlugin = "7.0.3"
 
 ktlint = "0.41.0"
-kotlin = "1.5.30"
+kotlin = "1.5.31"
 coroutines = "1.5.2"
 
 androidxtest = "1.4.0"
