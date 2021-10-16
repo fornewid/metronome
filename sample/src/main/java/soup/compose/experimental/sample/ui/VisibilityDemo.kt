@@ -40,37 +40,48 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.experimental.sample.theme.SampleTheme
-import soup.compose.ui.Invisible
+import soup.compose.ui.invisible
+import soup.compose.ui.visible
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun InvisibleSample() {
-    Invisible(invisible = true) {
-        Text("Invisible Text")
-    }
+fun VisibleSample() {
+    Text(
+        text = "Invisible Text",
+        modifier = Modifier.visible(visible = false)
+    )
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun InvisibleDemo() {
+fun InvisibleSample() {
+    Text(
+        text = "Invisible Text",
+        modifier = Modifier.invisible(invisible = true)
+    )
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun VisibilityDemo() {
     val (visible, onVisibleChange) = rememberSaveable { mutableStateOf(true) }
     Scaffold(
         topBar = { TopAppBar(title = { Text(text = "VisibilityDemo") }) },
         content = {
             Column(modifier = Modifier.padding(it)) {
                 ColorText("Top", Color.Red)
-                Invisible(invisible = visible.not()) {
-                    ColorText("Visibility", Color.Green)
-                }
+                ColorText("Visibility", Color.Green, modifier = Modifier.visible(visible))
                 ColorText("Bottom", Color.Blue)
 
                 Spacer(Modifier.height(24.dp))
 
                 Row {
                     ColorText("Left", Color.Red)
-                    Invisible(invisible = visible.not()) {
-                        ColorText("Visibility", Color.Green)
-                    }
+                    ColorText(
+                        "Visibility",
+                        Color.Green,
+                        modifier = Modifier.invisible(visible.not())
+                    )
                     ColorText("Right", Color.Blue)
                 }
             }
@@ -80,11 +91,15 @@ fun InvisibleDemo() {
 }
 
 @Composable
-private fun ColorText(text: String, color: Color) {
+private fun ColorText(
+    text: String,
+    color: Color,
+    modifier: Modifier = Modifier
+) {
     Text(
         text = text,
         color = if (color.luminance() < 0.5) Color.White else Color.Black,
-        modifier = Modifier
+        modifier = modifier
             .background(color)
             .padding(24.dp)
     )
@@ -130,6 +145,6 @@ private fun BottomBar(
 @Composable
 private fun Preview() {
     SampleTheme {
-        InvisibleDemo()
+        VisibilityDemo()
     }
 }
