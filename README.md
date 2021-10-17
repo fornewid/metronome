@@ -17,7 +17,7 @@ This library provides experimental features that is not in the [Jetpack Compose]
 
 ### [ui](https://github.com/fornewid/compose-experimental/tree/main/ui)
 
-- [Invisible](https://github.com/fornewid/compose-experimental/blob/main/ui/src/main/java/soup/compose/ui/Invisible.kt)
+- [Visibility](https://github.com/fornewid/compose-experimental/blob/main/ui/src/main/java/soup/compose/ui/Visibility.kt)
 
 
 ## License
