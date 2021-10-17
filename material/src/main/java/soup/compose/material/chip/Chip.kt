@@ -154,9 +154,7 @@ fun EntryChip(
     modifier = modifier,
     chipIcon = {
         Box {
-            if (chipIcon != null) {
-                chipIcon()
-            }
+            chipIcon?.invoke()
             if (checked) {
                 checkedIcon()
             }
@@ -186,6 +184,7 @@ fun FilterChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)? = null,
     checkedIcon: @Composable () -> Unit = { Icon(ChipChecked, contentDescription = null) },
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
@@ -211,6 +210,7 @@ fun FilterChip(
     checked = checked,
     onCheckedChange = onCheckedChange,
     modifier = modifier,
+    chipIcon = chipIcon,
     checkedIcon = checkedIcon,
     closeIcon = closeIcon,
     onCloseIconClick = onCloseIconClick,
@@ -242,6 +242,7 @@ fun FilterChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
+    chipIcon: (@Composable () -> Unit)? = null,
     checkedIcon: @Composable () -> Unit = { Icon(ChipChecked, contentDescription = null) },
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
@@ -268,7 +269,13 @@ fun FilterChip(
     checked = checked,
     onCheckedChange = onCheckedChange,
     modifier = modifier,
-    chipIcon = checkedIcon.takeIf { checked },
+    chipIcon = {
+        if (checked) {
+            checkedIcon()
+        } else {
+            chipIcon?.invoke()
+        }
+    },
     closeIcon = closeIcon,
     onCloseIconClick = onCloseIconClick,
     enabled = enabled,
@@ -542,9 +549,7 @@ private fun BasicChip(
                     .weight(1f, fill = false),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                if (chipIcon != null) {
-                    chipIcon()
-                }
+                chipIcon?.invoke()
                 content()
             }
             if (onCloseIconClick != null) {
