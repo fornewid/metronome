@@ -1,6 +1,6 @@
 # ui
 
-<a href="https://jitpack.io/#fornewid/compose-experimental"><img src="https://jitpack.io/v/fornewid/compose-experimental.svg"/></a>
+<a href="https://jitpack.io/#fornewid/compose-extensions"><img src="https://jitpack.io/v/fornewid/compose-extensions.svg"/></a>
 
 ## Installation
 
@@ -10,15 +10,15 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.fornewid.compose-experimental:ui:<version>"
+    implementation "com.github.fornewid.compose-extensions:ui:<version>"
 }
 ```
 
-Depend on the [latest version](https://github.com/fornewid/compose-experimental/releases) of the library.
+Depend on the [latest version](https://github.com/fornewid/compose-extensions/releases) of the library.
 
 ## Usage
 
-#### [Visibility](https://github.com/fornewid/compose-experimental/blob/main/ui/src/main/java/soup/compose/ui/Visibility.kt)
+#### [Visibility](https://github.com/fornewid/compose-extensions/blob/main/ui/src/main/java/soup/compose/ui/Visibility.kt)
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)

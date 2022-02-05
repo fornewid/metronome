@@ -1,6 +1,6 @@
 # material
 
-<a href="https://jitpack.io/#fornewid/compose-experimental"><img src="https://jitpack.io/v/fornewid/compose-experimental.svg"/></a>
+<a href="https://jitpack.io/#fornewid/compose-extensions"><img src="https://jitpack.io/v/fornewid/compose-extensions.svg"/></a>
 
 ## Installation
 
@@ -10,15 +10,15 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.fornewid.compose-experimental:material:<version>"
+    implementation "com.github.fornewid.compose-extensions:material:<version>"
 }
 ```
 
-Depend on the [latest version](https://github.com/fornewid/compose-experimental/releases) of the library.
+Depend on the [latest version](https://github.com/fornewid/compose-extensions/releases) of the library.
 
 ## Usage
 
-#### [Chip](https://github.com/fornewid/compose-experimental/blob/main/material/src/main/java/soup/compose/material/chip/Chip.kt)
+#### [Chip](https://github.com/fornewid/compose-extensions/blob/main/material/src/main/java/soup/compose/material/chip/Chip.kt)
 
 ```kotlin
 @Composable
@@ -61,7 +61,7 @@ fun ChoiceChipSample() {
 }
 ```
 
-#### [UnelevatedButton](https://github.com/fornewid/compose-experimental/blob/main/material/src/main/java/soup/compose/material/UnelevatedButton.kt)
+#### [UnelevatedButton](https://github.com/fornewid/compose-extensions/blob/main/material/src/main/java/soup/compose/material/UnelevatedButton.kt)
 
 ```kotlin
 @Composable

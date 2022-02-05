@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.experimental.sample.ui
+package soup.compose.extensions.sample.ui
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background
@@ -39,7 +39,7 @@ import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import soup.compose.experimental.sample.theme.SampleTheme
+import soup.compose.extensions.sample.theme.SampleTheme
 import soup.compose.ui.invisible
 import soup.compose.ui.visible
 

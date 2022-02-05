@@ -33,12 +33,12 @@ import androidx.compose.ui.graphics.Shape
 /**
  * Same as [com.google.android.material.R.style.Widget_MaterialComponents_Button_UnelevatedButton].
  *
- * @sample soup.compose.experimental.sample.material.UnelevatedButtonSample
+ * @sample soup.compose.extensions.sample.material.UnelevatedButtonSample
  *
  * If you need to add an icon just put it inside the [content] slot together with a spacing
  * and a text:
  *
- * @sample soup.compose.experimental.sample.material.UnelevatedButtonWithIconSample
+ * @sample soup.compose.extensions.sample.material.UnelevatedButtonWithIconSample
  *
  * @param onClick Will be called when the user clicks the button
  * @param modifier Modifier to be applied to the button

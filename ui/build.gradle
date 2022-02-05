@@ -59,7 +59,7 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.fornewid.compose-experimental'
+                groupId = 'com.github.fornewid.compose-extensions'
                 artifactId = 'ui'
                 version = '0.1.6'
             }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.experimental.sample
+package soup.compose.extensions.sample
 
 import android.app.Application
 import logcat.AndroidLogcatLogger

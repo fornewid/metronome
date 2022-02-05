@@ -58,7 +58,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
- * @sample soup.compose.experimental.sample.material.EntryChipSample
+ * @sample soup.compose.extensions.sample.material.EntryChipSample
  */
 @ExperimentalMaterialApi
 @Composable
@@ -117,7 +117,7 @@ fun EntryChip(
 )
 
 /**
- * @sample soup.compose.experimental.sample.material.EntryChipSample
+ * @sample soup.compose.extensions.sample.material.EntryChipSample
  */
 @ExperimentalMaterialApi
 @Composable
@@ -175,7 +175,7 @@ fun EntryChip(
 )
 
 /**
- * @sample soup.compose.experimental.sample.material.FilterChipSample
+ * @sample soup.compose.extensions.sample.material.FilterChipSample
  */
 @ExperimentalMaterialApi
 @Composable
@@ -234,7 +234,7 @@ fun FilterChip(
 )
 
 /**
- * @sample soup.compose.experimental.sample.material.FilterChipSample
+ * @sample soup.compose.extensions.sample.material.FilterChipSample
  */
 @ExperimentalMaterialApi
 @Composable
@@ -291,7 +291,7 @@ fun FilterChip(
 )
 
 /**
- * @sample soup.compose.experimental.sample.material.ChoiceChipSample
+ * @sample soup.compose.extensions.sample.material.ChoiceChipSample
  */
 @ExperimentalMaterialApi
 @Composable
@@ -348,7 +348,7 @@ fun ChoiceChip(
 )
 
 /**
- * @sample soup.compose.experimental.sample.material.ChoiceChipSample
+ * @sample soup.compose.extensions.sample.material.ChoiceChipSample
  */
 @ExperimentalMaterialApi
 @Composable
@@ -398,7 +398,7 @@ fun ChoiceChip(
 )
 
 /**
- * @sample soup.compose.experimental.sample.material.ActionChipSample
+ * @sample soup.compose.extensions.sample.material.ActionChipSample
  */
 @ExperimentalMaterialApi
 @Composable
@@ -453,7 +453,7 @@ fun ActionChip(
 )
 
 /**
- * @sample soup.compose.experimental.sample.material.ActionChipSample
+ * @sample soup.compose.extensions.sample.material.ActionChipSample
  */
 @ExperimentalMaterialApi
 @Composable

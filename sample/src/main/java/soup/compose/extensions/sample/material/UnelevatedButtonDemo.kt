@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.experimental.sample.material
+package soup.compose.extensions.sample.material
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
@@ -35,8 +35,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import soup.compose.experimental.sample.theme.SampleMaterialTheme
-import soup.compose.experimental.sample.theme.SampleTheme
+import soup.compose.extensions.sample.theme.SampleMaterialTheme
+import soup.compose.extensions.sample.theme.SampleTheme
 import soup.compose.material.UnelevatedButton
 
 @Composable

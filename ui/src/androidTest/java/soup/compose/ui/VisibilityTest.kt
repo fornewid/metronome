@@ -39,7 +39,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import soup.compose.experimental.internal.test.assertPixelOfCenter
+import soup.compose.extensions.internal.test.assertPixelOfCenter
 
 @RunWith(AndroidJUnit4::class)
 class VisibilityTest {

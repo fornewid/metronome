@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.experimental.sample
+package soup.compose.extensions.sample
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
-import soup.compose.experimental.sample.material.ChipDemo
-import soup.compose.experimental.sample.material.UnelevatedButtonDemo
-import soup.compose.experimental.sample.ui.VisibilityDemo
+import soup.compose.extensions.sample.material.ChipDemo
+import soup.compose.extensions.sample.material.UnelevatedButtonDemo
+import soup.compose.extensions.sample.ui.VisibilityDemo
 import soup.compose.material.motion.navigation.MaterialMotionNavHost
 import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
