@@ -76,10 +76,10 @@ class VisibilityTest {
                 // Green Box is displayed on Visible only.
                 Box(
                     modifier = Modifier
+                        .testTag(innerTag)
                         .visible(visible)
                         .size(20.dp)
                         .background(color = Color.Green)
-                        .testTag(innerTag)
                 )
 
                 // Blue Box is displayed only when Green Box is Gone.
@@ -137,10 +137,10 @@ class VisibilityTest {
                 // Green Box is displayed on Visible only.
                 Box(
                     modifier = Modifier
+                        .testTag(innerTag)
                         .invisible(invisible)
                         .size(20.dp)
                         .background(color = Color.Green)
-                        .testTag(innerTag)
                 )
 
                 // Blue Box is displayed only when Green Box is Gone.
