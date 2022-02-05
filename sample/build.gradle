@@ -6,7 +6,7 @@ plugins {
 android {
     compileSdkVersion 31
     defaultConfig {
-        applicationId "soup.compose.experimental.sample"
+        applicationId "soup.compose.extensions.sample"
         minSdkVersion 21
         targetSdkVersion 31
 

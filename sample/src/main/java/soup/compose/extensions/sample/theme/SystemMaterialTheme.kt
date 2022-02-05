@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.experimental.sample.theme
+package soup.compose.extensions.sample.theme
 
 import androidx.compose.material.Colors
 import androidx.compose.material.MaterialTheme

@@ -15,7 +15,7 @@
  */
 @file:Suppress("unused")
 
-package soup.compose.experimental.internal.test
+package soup.compose.extensions.internal.test
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
