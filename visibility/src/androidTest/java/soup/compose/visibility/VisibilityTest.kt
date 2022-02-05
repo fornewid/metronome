@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.isDebugInspectorInfoEnabled
@@ -60,7 +59,6 @@ class VisibilityTest {
         isDebugInspectorInfoEnabled = false
     }
 
-    @OptIn(ExperimentalComposeUiApi::class)
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O) // captureToImage is SDK 26+
     fun visible_switchState() {
@@ -122,7 +120,6 @@ class VisibilityTest {
             .assertPixelOfCenter(Color.Green)
     }
 
-    @OptIn(ExperimentalComposeUiApi::class)
     @Test
     @SdkSuppress(minSdkVersion = Build.VERSION_CODES.O) // captureToImage is SDK 26+
     fun invisible_switchState() {

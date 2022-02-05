@@ -32,7 +32,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
@@ -43,7 +42,6 @@ import soup.compose.extensions.sample.theme.SampleTheme
 import soup.compose.visibility.invisible
 import soup.compose.visibility.visible
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun VisibleSample() {
     Text(
@@ -52,7 +50,6 @@ fun VisibleSample() {
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun InvisibleSample() {
     Text(
@@ -61,7 +58,6 @@ fun InvisibleSample() {
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun VisibilityDemo() {
     val (visible, onVisibleChange) = rememberSaveable { mutableStateOf(true) }
@@ -105,7 +101,6 @@ private fun ColorText(
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun BottomBar(
     visible: Boolean,
@@ -139,7 +134,6 @@ private fun BottomBar(
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Preview(name = "Light", showBackground = true)
 @Preview(name = "Dark", showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
