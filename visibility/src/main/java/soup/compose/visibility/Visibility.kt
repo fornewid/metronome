@@ -23,6 +23,7 @@ import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.MeasureResult
 import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Constraints
 
 /**
@@ -36,7 +37,8 @@ fun Modifier.visible(visible: Boolean): Modifier {
     return if (visible) {
         this
     } else {
-        this.then(Invisible)
+        this.then(InvisibleModifier)
+            .clearAndSetSemantics {}
     }
 }
 
@@ -49,13 +51,14 @@ fun Modifier.visible(visible: Boolean): Modifier {
  */
 fun Modifier.invisible(invisible: Boolean): Modifier {
     return if (invisible) {
-        this.then(Invisible)
+        this.then(InvisibleModifier)
+            .clearAndSetSemantics {}
     } else {
         this
     }
 }
 
-private object Invisible : LayoutModifier, DrawModifier {
+private object InvisibleModifier : LayoutModifier, DrawModifier {
 
     override fun MeasureScope.measure(
         measurable: Measurable,
