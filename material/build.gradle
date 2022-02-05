@@ -50,7 +50,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.fornewid.compose-extensions'
                 artifactId = 'material'
-                version = '0.1.6'
+                version = '0.2.0'
             }
         }
     }
