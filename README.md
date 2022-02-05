@@ -15,9 +15,7 @@ This library provides extension features that is not in the [Jetpack Compose](ht
 - [Chip](https://github.com/fornewid/compose-extensions/blob/main/material/src/main/java/soup/compose/material/chip/Chip.kt)
 - [UnelevatedButton](https://github.com/fornewid/compose-extensions/blob/main/material/src/main/java/soup/compose/material/UnelevatedButton.kt)
 
-### [ui](https://github.com/fornewid/compose-extensions/tree/main/ui)
-
-- [Visibility](https://github.com/fornewid/compose-extensions/blob/main/ui/src/main/java/soup/compose/ui/Visibility.kt)
+### [Visibility](https://github.com/fornewid/compose-extensions/tree/main/visibility)
 
 
 ## License

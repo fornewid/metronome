@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.compose.ui
+package soup.compose.visibility
 
 import org.junit.Test
 import org.junit.runner.RunWith

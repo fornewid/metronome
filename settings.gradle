@@ -1,6 +1,6 @@
 include ':sample'
 include ':material'
-include ':ui'
+include ':visibility'
 include ':internal-testutils'
 
 // Enable Gradle's version catalog support

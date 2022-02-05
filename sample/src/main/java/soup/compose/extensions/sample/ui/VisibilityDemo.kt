@@ -40,8 +40,8 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import soup.compose.extensions.sample.theme.SampleTheme
-import soup.compose.ui.invisible
-import soup.compose.ui.visible
+import soup.compose.visibility.invisible
+import soup.compose.visibility.visible
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable

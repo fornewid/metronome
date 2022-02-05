@@ -60,7 +60,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.fornewid.compose-extensions'
-                artifactId = 'ui'
+                artifactId = 'visibility'
                 version = '0.1.6'
             }
         }

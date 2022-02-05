@@ -1,4 +1,4 @@
-# ui
+# Visibility
 
 <a href="https://jitpack.io/#fornewid/compose-extensions"><img src="https://jitpack.io/v/fornewid/compose-extensions.svg"/></a>
 
@@ -10,15 +10,13 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.fornewid.compose-extensions:ui:<version>"
+    implementation "com.github.fornewid.compose-extensions:visibility:<version>"
 }
 ```
 
 Depend on the [latest version](https://github.com/fornewid/compose-extensions/releases) of the library.
 
 ## Usage
-
-#### [Visibility](https://github.com/fornewid/compose-extensions/blob/main/ui/src/main/java/soup/compose/ui/Visibility.kt)
 
 ```kotlin
 @OptIn(ExperimentalComposeUiApi::class)
