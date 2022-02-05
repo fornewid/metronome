@@ -15,7 +15,6 @@
  */
 package soup.compose.visibility
 
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.DrawModifier
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
@@ -24,6 +23,7 @@ import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.MeasureResult
 import androidx.compose.ui.layout.MeasureScope
 import androidx.compose.ui.layout.Placeable
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.unit.Constraints
 
 /**
@@ -33,12 +33,12 @@ import androidx.compose.ui.unit.Constraints
  *
  * @param visible true sets the visibility to [android.view.View.VISIBLE], false to [android.view.View.INVISIBLE].
  */
-@ExperimentalComposeUiApi
 fun Modifier.visible(visible: Boolean): Modifier {
     return if (visible) {
         this
     } else {
-        this.then(Invisible)
+        this.then(InvisibleModifier)
+            .clearAndSetSemantics {}
     }
 }
 
@@ -49,16 +49,16 @@ fun Modifier.visible(visible: Boolean): Modifier {
  *
  * @param invisible true sets the visibility to [android.view.View.INVISIBLE], false to [android.view.View.VISIBLE].
  */
-@ExperimentalComposeUiApi
 fun Modifier.invisible(invisible: Boolean): Modifier {
     return if (invisible) {
-        this.then(Invisible)
+        this.then(InvisibleModifier)
+            .clearAndSetSemantics {}
     } else {
         this
     }
 }
 
-private object Invisible : LayoutModifier, DrawModifier {
+private object InvisibleModifier : LayoutModifier, DrawModifier {
 
     override fun MeasureScope.measure(
         measurable: Measurable,

@@ -19,7 +19,6 @@ Depend on the [latest version](https://github.com/fornewid/compose-extensions/re
 ## Usage
 
 ```kotlin
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun VisibleSample() {
     Text(
@@ -28,7 +27,6 @@ fun VisibleSample() {
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun InvisibleSample() {
     Text(
