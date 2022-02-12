@@ -23,7 +23,6 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonColors
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.ButtonElevation
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -48,9 +47,6 @@ import androidx.compose.ui.graphics.Shape
  * [Interaction]s for this Button. You can create and pass in your own remembered
  * [MutableInteractionSource] if you want to observe [Interaction]s and customize the
  * appearance / behavior of this Button in different [Interaction]s.
- * @param elevation [ButtonElevation] used to resolve the elevation for this button in different
- * states. This controls the size of the shadow below the button. Pass `null` here to disable
- * elevation for this button. See [ButtonDefaults.elevation].
  * @param shape Defines the button's shape as well as its shadow
  * @param border Border to draw around the button
  * @param colors [ButtonColors] that will be used to resolve the background and content color for
