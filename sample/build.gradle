@@ -6,7 +6,7 @@ plugins {
 android {
     compileSdkVersion 31
     defaultConfig {
-        applicationId "soup.compose.extensions.sample"
+        applicationId "soup.metronome.sample"
         minSdkVersion 21
         targetSdkVersion 31
 

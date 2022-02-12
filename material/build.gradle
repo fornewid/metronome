@@ -48,7 +48,7 @@ afterEvaluate {
         publications {
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.fornewid.compose-extensions'
+                groupId = 'com.github.fornewid.metronome'
                 artifactId = 'material'
                 version = '0.2.0'
             }
