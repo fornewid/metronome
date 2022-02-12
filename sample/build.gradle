@@ -44,7 +44,6 @@ dependencies {
     implementation project(':material')
     implementation project(':visibility')
 
-    implementation libs.androidx.core
     implementation libs.androidx.activity.compose
     implementation libs.compose.foundation.foundation
     implementation libs.compose.material.material
@@ -52,5 +51,4 @@ dependencies {
     implementation libs.compose.ui.preview
     debugImplementation libs.compose.ui.tooling
     implementation libs.material.motion.compose
-    implementation libs.logcat
 }

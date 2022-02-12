@@ -1,9 +1,9 @@
 [versions]
-compose = "1.0.5"
+compose = "1.1.0"
 
 ktlint = "0.41.0"
-kotlin = "1.5.31"
-coroutines = "1.5.2"
+kotlin = "1.6.10"
+coroutines = "1.6.0"
 
 androidxtest = "1.4.0"
 
@@ -26,10 +26,7 @@ kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", ve
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 
-androidx-core = "androidx.core:core-ktx:1.5.0"
 androidx-activity-compose = "androidx.activity:activity-compose:1.3.1"
-androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.3.1"
-androidx-lifecycle-viewmodel-compose = "androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha05"
 
 androidx-test-core = { module = "androidx.test:core-ktx", version.ref = "androidxtest" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxtest" }
@@ -37,7 +34,5 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxt
 
 junit = "junit:junit:4.13"
 truth = "com.google.truth:truth:1.1.2"
-robolectric = "org.robolectric:robolectric:4.5.1"
 
-logcat = "com.squareup.logcat:logcat:0.1"
-material-motion-compose = "com.github.fornewid.material-motion-compose:navigation:0.7.4"
+material-motion-compose = "com.github.fornewid.material-motion-compose:navigation:0.8.0"
