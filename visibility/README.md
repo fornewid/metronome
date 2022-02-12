@@ -1,6 +1,6 @@
 # Visibility
 
-<a href="https://jitpack.io/#fornewid/compose-extensions"><img src="https://jitpack.io/v/fornewid/compose-extensions.svg"/></a>
+<a href="https://jitpack.io/#fornewid/metronome"><img src="https://jitpack.io/v/fornewid/metronome.svg"/></a>
 
 ## Installation
 
@@ -10,11 +10,11 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.fornewid.compose-extensions:visibility:<version>"
+    implementation "com.github.fornewid.metronome:visibility:<version>"
 }
 ```
 
-Depend on the [latest version](https://github.com/fornewid/compose-extensions/releases) of the library.
+Depend on the [latest version](https://github.com/fornewid/metronome/releases) of the library.
 
 ## Usage
 
