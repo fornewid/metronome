@@ -1,8 +1,6 @@
 [versions]
 compose = "1.0.5"
 
-gradlePlugin = "7.0.3"
-
 ktlint = "0.41.0"
 kotlin = "1.5.31"
 coroutines = "1.5.2"
@@ -10,6 +8,8 @@ coroutines = "1.5.2"
 androidxtest = "1.4.0"
 
 [libraries]
+android-pluginGradle = "com.android.tools.build:gradle:7.1.0"
+
 compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
@@ -20,10 +20,8 @@ compose-foundation-foundation = { module = "androidx.compose.foundation:foundati
 compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
 compose-material-material = { module = "androidx.compose.material:material", version.ref = "compose" }
 
-android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "gradlePlugin" }
-
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
-kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
 kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 kotlin-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
