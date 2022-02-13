@@ -67,7 +67,7 @@ fun EntryChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)? = null,
+    chipIcon: @Composable (() -> Unit)? = null,
     checkedIcon: @Composable () -> Unit = { Image(ChipCheckedCircle, contentDescription = null) },
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
@@ -87,8 +87,7 @@ fun EntryChip(
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
         ChipDefaults.ContentPadding
-    },
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize
+    }
 ) = EntryChip(
     checked = checked,
     onCheckedChange = onCheckedChange,
@@ -105,7 +104,6 @@ fun EntryChip(
     colors = colors,
     rippleColor = rippleColor,
     contentPadding = contentPadding,
-    minTouchTargetSize = minTouchTargetSize,
     content = {
         Text(
             text = text,
@@ -125,7 +123,7 @@ fun EntryChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)? = null,
+    chipIcon: @Composable (() -> Unit)? = null,
     checkedIcon: @Composable () -> Unit = { Image(ChipCheckedCircle, contentDescription = null) },
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
@@ -146,7 +144,6 @@ fun EntryChip(
     } else {
         ChipDefaults.ContentPadding
     },
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
 ) = BasicChip(
     checked = checked,
@@ -170,7 +167,6 @@ fun EntryChip(
     colors = colors,
     rippleColor = rippleColor,
     contentPadding = contentPadding,
-    minTouchTargetSize = minTouchTargetSize,
     content = content
 )
 
@@ -184,7 +180,7 @@ fun FilterChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)? = null,
+    chipIcon: @Composable (() -> Unit)? = null,
     checkedIcon: @Composable () -> Unit = { Icon(ChipChecked, contentDescription = null) },
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
@@ -204,8 +200,7 @@ fun FilterChip(
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
         ChipDefaults.ContentPadding
-    },
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize
+    }
 ) = FilterChip(
     checked = checked,
     onCheckedChange = onCheckedChange,
@@ -222,7 +217,6 @@ fun FilterChip(
     colors = colors,
     rippleColor = rippleColor,
     contentPadding = contentPadding,
-    minTouchTargetSize = minTouchTargetSize,
     content = {
         Text(
             text = text,
@@ -242,7 +236,7 @@ fun FilterChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)? = null,
+    chipIcon: @Composable (() -> Unit)? = null,
     checkedIcon: @Composable () -> Unit = { Icon(ChipChecked, contentDescription = null) },
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
@@ -263,7 +257,6 @@ fun FilterChip(
     } else {
         ChipDefaults.ContentPadding
     },
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
 ) = BasicChip(
     checked = checked,
@@ -286,7 +279,6 @@ fun FilterChip(
     colors = colors,
     rippleColor = rippleColor,
     contentPadding = contentPadding,
-    minTouchTargetSize = minTouchTargetSize,
     content = content
 )
 
@@ -300,7 +292,7 @@ fun ChoiceChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)? = null,
+    chipIcon: @Composable (() -> Unit)? = null,
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
             contentDescription = null,
@@ -319,8 +311,7 @@ fun ChoiceChip(
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
         ChipDefaults.ContentPadding
-    },
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize
+    }
 ) = ChoiceChip(
     checked = checked,
     onCheckedChange = onCheckedChange,
@@ -336,7 +327,6 @@ fun ChoiceChip(
     colors = colors,
     rippleColor = rippleColor,
     contentPadding = contentPadding,
-    minTouchTargetSize = minTouchTargetSize,
     content = {
         Text(
             text = text,
@@ -356,7 +346,7 @@ fun ChoiceChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)? = null,
+    chipIcon: @Composable() (() -> Unit)? = null,
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
             contentDescription = null,
@@ -376,7 +366,6 @@ fun ChoiceChip(
     } else {
         ChipDefaults.ContentPadding
     },
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
 ) = BasicChip(
     checked = checked,
@@ -393,7 +382,6 @@ fun ChoiceChip(
     colors = colors,
     rippleColor = rippleColor,
     contentPadding = contentPadding,
-    minTouchTargetSize = minTouchTargetSize,
     content = content
 )
 
@@ -406,7 +394,7 @@ fun ActionChip(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)? = null,
+    chipIcon: @Composable() (() -> Unit)? = null,
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
             contentDescription = null,
@@ -425,8 +413,7 @@ fun ActionChip(
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
         ChipDefaults.ContentPadding
-    },
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize
+    }
 ) = ActionChip(
     onClick = onClick,
     modifier = modifier,
@@ -441,7 +428,6 @@ fun ActionChip(
     colors = colors,
     rippleColor = rippleColor,
     contentPadding = contentPadding,
-    minTouchTargetSize = minTouchTargetSize,
     content = {
         Text(
             text = text,
@@ -460,7 +446,7 @@ fun ActionChip(
 fun ActionChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)? = null,
+    chipIcon: @Composable() (() -> Unit)? = null,
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
             contentDescription = null,
@@ -480,7 +466,6 @@ fun ActionChip(
     } else {
         ChipDefaults.ContentPadding
     },
-    minTouchTargetSize: Dp = ChipDefaults.MinTouchTargetSize,
     content: @Composable RowScope.() -> Unit
 ) = BasicChip(
     checked = false,
@@ -497,7 +482,6 @@ fun ActionChip(
     colors = colors,
     rippleColor = rippleColor,
     contentPadding = contentPadding,
-    minTouchTargetSize = minTouchTargetSize,
     content = content
 )
 
@@ -507,7 +491,7 @@ private fun BasicChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: (@Composable () -> Unit)?,
+    chipIcon: @Composable() (() -> Unit)?,
     closeIcon: @Composable () -> Unit,
     onCloseIconClick: (() -> Unit)?,
     enabled: Boolean,
@@ -518,21 +502,12 @@ private fun BasicChip(
     colors: ChipColors,
     rippleColor: Color,
     contentPadding: PaddingValues,
-    minTouchTargetSize: Dp,
     content: @Composable RowScope.() -> Unit
 ) {
-    val minTouchTargetSizeModifier = if (minTouchTargetSize > ChipDefaults.MinHeight) {
-        Modifier.padding(vertical = (minTouchTargetSize - ChipDefaults.MinHeight) / 2f)
-    } else {
-        Modifier
-    }
     val contentColor by colors.contentColor(enabled, checked)
     CoreChip(
         onClick = { onCheckedChange(checked.not()) },
-        modifier = modifier
-            .then(minTouchTargetSizeModifier)
-            .defaultMinSize(minHeight = ChipDefaults.MinHeight)
-            .height(IntrinsicSize.Min),
+        modifier = modifier,
         enabled = enabled,
         interactionSource = interactionSource,
         elevation = elevation.elevation(enabled, interactionSource).value,
@@ -542,7 +517,12 @@ private fun BasicChip(
         contentColor = contentColor,
         rippleColor = rippleColor
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .defaultMinSize(minHeight = ChipDefaults.MinHeight)
+                .height(IntrinsicSize.Min),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Row(
                 modifier = Modifier
                     .padding(contentPadding)
@@ -654,7 +634,6 @@ object ChipDefaults {
     )
 
     val MinHeight = 32.dp
-    val MinTouchTargetSize = 48.dp
 
     val TextPadding = PaddingValues(start = 8.dp, end = 6.dp)
 
