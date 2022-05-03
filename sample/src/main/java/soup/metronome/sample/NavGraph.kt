@@ -54,8 +54,10 @@ fun NavGraph() {
             )
         }
 
-        destinations.forEach {
-            composable(it.key, content = it.content)
+        destinations.forEach { destination ->
+            composable(destination.key) {
+                destination.content(it)
+            }
         }
     }
 }
