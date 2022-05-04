@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.Constraints
 /**
  * A [Modifier.Element] that controls the content drawing.
  *
- * @sample soup.metronome.sample.ui.VisibleSample
+ * @sample soup.metronome.sample.visibility.VisibleSample
  *
  * @param visible true sets the visibility to [android.view.View.VISIBLE], false to [android.view.View.INVISIBLE].
  */
@@ -45,7 +45,7 @@ fun Modifier.visible(visible: Boolean): Modifier {
 /**
  * A [Modifier.Element] that controls the content drawing.
  *
- * @sample soup.metronome.sample.ui.InvisibleSample
+ * @sample soup.metronome.sample.visibility.InvisibleSample
  *
  * @param invisible true sets the visibility to [android.view.View.INVISIBLE], false to [android.view.View.VISIBLE].
  */
