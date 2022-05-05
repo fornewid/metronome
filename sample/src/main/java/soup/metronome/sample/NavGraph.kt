@@ -23,7 +23,7 @@ import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 import soup.metronome.sample.material.ChipDemo
 import soup.metronome.sample.material.UnelevatedButtonDemo
-import soup.metronome.sample.ui.VisibilityDemo
+import soup.metronome.sample.visibility.VisibilityDemo
 
 data class Destination(
     val key: String,
