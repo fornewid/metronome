@@ -13,21 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.metronome.readmore.material
+package soup.metronome.readmore
 
-import androidx.compose.foundation.Indication
-import androidx.compose.foundation.LocalIndication
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.LocalTextStyle
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.takeOrElse
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLayoutResult
@@ -39,11 +34,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
-import soup.metronome.readmore.BasicReadMoreText
 
 @Composable
 fun ReadMoreText(
     text: String,
+    expanded: Boolean,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
     fontSize: TextUnit = TextUnit.Unspecified,
@@ -62,15 +57,11 @@ fun ReadMoreText(
     readMoreColor: Color = Color.Unspecified,
     readMoreFontSize: TextUnit = TextUnit.Unspecified,
     readMoreFontStyle: FontStyle? = null,
+    readMoreFontWeight: FontWeight? = null,
     readMoreFontFamily: FontFamily? = null,
     readMoreTextDecoration: TextDecoration? = null,
     readMoreMaxLines: Int = 2,
-    readMoreStyle: SpanStyle = style.toSpanStyle(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    indication: Indication? = LocalIndication.current,
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    role: Role? = null
+    readMoreStyle: SpanStyle = style.toSpanStyle()
 ) {
     val textColor = color.takeOrElse {
         style.color.takeOrElse {
@@ -98,6 +89,7 @@ fun ReadMoreText(
             SpanStyle(
                 color = readMoreColor,
                 fontSize = readMoreFontSize,
+                fontWeight = readMoreFontWeight,
                 fontFamily = readMoreFontFamily,
                 textDecoration = readMoreTextDecoration,
                 fontStyle = readMoreFontStyle
@@ -105,6 +97,7 @@ fun ReadMoreText(
         )
     BasicReadMoreText(
         text = text,
+        expanded = expanded,
         modifier = modifier,
         style = mergedStyle,
         onTextLayout = onTextLayout,
@@ -113,17 +106,13 @@ fun ReadMoreText(
         readMoreText = readMoreText,
         readMoreMaxLines = readMoreMaxLines,
         readMoreStyle = mergedReadMoreStyle,
-        interactionSource = interactionSource,
-        indication = indication,
-        enabled = enabled,
-        onClickLabel = onClickLabel,
-        role = role,
     )
 }
 
 @Composable
 fun ReadMoreText(
     text: AnnotatedString,
+    expanded: Boolean,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
     fontSize: TextUnit = TextUnit.Unspecified,
@@ -143,15 +132,11 @@ fun ReadMoreText(
     readMoreColor: Color = Color.Unspecified,
     readMoreFontSize: TextUnit = TextUnit.Unspecified,
     readMoreFontStyle: FontStyle? = null,
+    readMoreFontWeight: FontWeight? = null,
     readMoreFontFamily: FontFamily? = null,
     readMoreTextDecoration: TextDecoration? = null,
     readMoreMaxLines: Int = 2,
-    readMoreStyle: SpanStyle = style.toSpanStyle(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    indication: Indication? = LocalIndication.current,
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    role: Role? = null,
+    readMoreStyle: SpanStyle = style.toSpanStyle()
 ) {
     val textColor = color.takeOrElse {
         style.color.takeOrElse {
@@ -179,6 +164,7 @@ fun ReadMoreText(
             SpanStyle(
                 color = readMoreColor,
                 fontSize = readMoreFontSize,
+                fontWeight = readMoreFontWeight,
                 fontFamily = readMoreFontFamily,
                 textDecoration = readMoreTextDecoration,
                 fontStyle = readMoreFontStyle
@@ -186,6 +172,7 @@ fun ReadMoreText(
         )
     BasicReadMoreText(
         text = text,
+        expanded = expanded,
         modifier = modifier,
         style = mergedStyle,
         onTextLayout = onTextLayout,
@@ -195,10 +182,5 @@ fun ReadMoreText(
         readMoreText = readMoreText,
         readMoreMaxLines = readMoreMaxLines,
         readMoreStyle = mergedReadMoreStyle,
-        interactionSource = interactionSource,
-        indication = indication,
-        enabled = enabled,
-        onClickLabel = onClickLabel,
-        role = role,
     )
 }

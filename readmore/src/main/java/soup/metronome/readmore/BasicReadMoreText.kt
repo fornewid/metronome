@@ -15,24 +15,14 @@
  */
 package soup.metronome.readmore
 
-import androidx.compose.foundation.Indication
-import androidx.compose.foundation.LocalIndication
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.DrawModifier
-import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLayoutResult
@@ -44,19 +34,15 @@ import androidx.compose.ui.text.withStyle
 @Composable
 fun BasicReadMoreText(
     text: String,
+    expanded: Boolean,
     modifier: Modifier = Modifier,
     style: TextStyle = TextStyle.Default,
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    overflow: TextOverflow = TextOverflow.Clip,
+    overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
     readMoreText: String = "",
     readMoreMaxLines: Int = 2,
-    readMoreStyle: SpanStyle = style.toSpanStyle(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    indication: Indication? = LocalIndication.current,
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    role: Role? = null
+    readMoreStyle: SpanStyle = style.toSpanStyle()
 ) {
     require(readMoreMaxLines > 0) { "readMoreMaxLines should be greater than 0" }
 
@@ -80,41 +66,13 @@ fun BasicReadMoreText(
         }
     }
 
-    var collapsedText by remember(text) { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
-    val (textLayout, onCurrentTextLayout) = remember { mutableStateOf<TextLayoutResult?>(null) }
-    val (overflowTextLayout, onOverflowTextLayout) = remember {
-        mutableStateOf<TextLayoutResult?>(
-            null
+    val state = remember(text, readMoreMaxLines) {
+        ReadMoreState(
+            originalText = AnnotatedString(text),
+            readMoreMaxLines = readMoreMaxLines
         )
     }
-    val (readMoreTextLayout, onReadMoreTextLayout) = remember {
-        mutableStateOf<TextLayoutResult?>(
-            null
-        )
-    }
-
-    LaunchedEffect(text, textLayout, overflowTextLayout, readMoreTextLayout) {
-        val lastLineIndex = readMoreMaxLines - 1
-        if (textLayout != null &&
-            overflowTextLayout != null &&
-            readMoreTextLayout != null &&
-            textLayout.lineCount <= readMoreMaxLines &&
-            textLayout.isLineEllipsized(lastLineIndex)
-        ) {
-            val countUntilMaxLine = textLayout.getLineEnd(readMoreMaxLines - 1, visibleEnd = true)
-            val readMoreWidth = overflowTextLayout.size.width + readMoreTextLayout.size.width
-            val maximumWidth = textLayout.size.width - readMoreWidth
-            var replacedEndIndex = countUntilMaxLine + 1
-            var currentTextBounds: Rect
-            do {
-                replacedEndIndex -= 1
-                currentTextBounds = textLayout.getCursorRect(replacedEndIndex)
-            } while (currentTextBounds.left > maximumWidth)
-            collapsedText = text.substring(startIndex = 0, endIndex = replacedEndIndex)
-        }
-    }
-
+    val collapsedText = state.collapsedText
     val currentText = buildAnnotatedString {
         if (expanded.not() && collapsedText.isNotEmpty()) {
             append(collapsedText)
@@ -124,26 +82,13 @@ fun BasicReadMoreText(
             append(text)
         }
     }
-    Box(
-        modifier = Modifier
-            .clickable(
-                interactionSource = interactionSource,
-                indication = indication,
-                enabled = enabled,
-                onClickLabel = onClickLabel,
-                role = role,
-                onClick = {
-                    expanded = !expanded
-                }
-            )
-            .then(modifier)
-    ) {
+    Box(modifier = modifier) {
         BasicText(
             text = currentText,
             modifier = Modifier,
             style = style,
             onTextLayout = {
-                onCurrentTextLayout(it)
+                state.onTextLayout(it)
                 onTextLayout(it)
             },
             overflow = TextOverflow.Ellipsis,
@@ -153,13 +98,13 @@ fun BasicReadMoreText(
         if (expanded.not()) {
             BasicText(
                 text = overflowText,
-                onTextLayout = onOverflowTextLayout,
+                onTextLayout = { state.onOverflowTextLayout(it) },
                 modifier = Modifier.notDraw(),
                 style = style
             )
             BasicText(
                 text = readMoreTextWithStyle,
-                onTextLayout = onReadMoreTextLayout,
+                onTextLayout = { state.onReadMoreTextLayout(it) },
                 modifier = Modifier.notDraw(),
                 style = style.merge(readMoreStyle)
             )
@@ -170,20 +115,16 @@ fun BasicReadMoreText(
 @Composable
 fun BasicReadMoreText(
     text: AnnotatedString,
+    expanded: Boolean,
     modifier: Modifier = Modifier,
     style: TextStyle = TextStyle.Default,
     onTextLayout: (TextLayoutResult) -> Unit = {},
-    overflow: TextOverflow = TextOverflow.Clip,
+    overflow: TextOverflow = TextOverflow.Ellipsis,
     softWrap: Boolean = true,
     inlineContent: Map<String, InlineTextContent> = mapOf(),
     readMoreText: String = "",
     readMoreMaxLines: Int = 2,
-    readMoreStyle: SpanStyle = style.toSpanStyle(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    indication: Indication? = LocalIndication.current,
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    role: Role? = null
+    readMoreStyle: SpanStyle = style.toSpanStyle()
 ) {
     require(readMoreMaxLines > 0) { "readMoreMaxLines should be greater than 0" }
 
@@ -207,41 +148,13 @@ fun BasicReadMoreText(
         }
     }
 
-    var collapsedText by remember(text) { mutableStateOf("") }
-    var expanded by remember { mutableStateOf(false) }
-    val (textLayout, onCurrentTextLayout) = remember { mutableStateOf<TextLayoutResult?>(null) }
-    val (overflowTextLayout, onOverflowTextLayout) = remember {
-        mutableStateOf<TextLayoutResult?>(
-            null
+    val state = remember(text, readMoreMaxLines) {
+        ReadMoreState(
+            originalText = text,
+            readMoreMaxLines = readMoreMaxLines
         )
     }
-    val (readMoreTextLayout, onReadMoreTextLayout) = remember {
-        mutableStateOf<TextLayoutResult?>(
-            null
-        )
-    }
-
-    LaunchedEffect(text, textLayout, overflowTextLayout, readMoreTextLayout) {
-        val lastLineIndex = readMoreMaxLines - 1
-        if (textLayout != null &&
-            overflowTextLayout != null &&
-            readMoreTextLayout != null &&
-            textLayout.lineCount <= readMoreMaxLines &&
-            textLayout.isLineEllipsized(lastLineIndex)
-        ) {
-            val countUntilMaxLine = textLayout.getLineEnd(readMoreMaxLines - 1, visibleEnd = true)
-            val readMoreWidth = overflowTextLayout.size.width + readMoreTextLayout.size.width
-            val maximumWidth = textLayout.size.width - readMoreWidth
-            var replacedEndIndex = countUntilMaxLine + 1
-            var currentTextBounds: Rect
-            do {
-                replacedEndIndex -= 1
-                currentTextBounds = textLayout.getCursorRect(replacedEndIndex)
-            } while (currentTextBounds.left > maximumWidth)
-            collapsedText = text.substring(startIndex = 0, endIndex = replacedEndIndex)
-        }
-    }
-
+    val collapsedText = state.collapsedText
     val currentText = buildAnnotatedString {
         if (expanded.not() && collapsedText.isNotEmpty()) {
             append(collapsedText)
@@ -251,26 +164,13 @@ fun BasicReadMoreText(
             append(text)
         }
     }
-    Box(
-        modifier = Modifier
-            .clickable(
-                interactionSource = interactionSource,
-                indication = indication,
-                enabled = enabled,
-                onClickLabel = onClickLabel,
-                role = role,
-                onClick = {
-                    expanded = !expanded
-                }
-            )
-            .then(modifier)
-    ) {
+    Box(modifier = modifier) {
         BasicText(
             text = currentText,
             modifier = Modifier,
             style = style,
             onTextLayout = {
-                onCurrentTextLayout(it)
+                state.onTextLayout(it)
                 onTextLayout(it)
             },
             overflow = TextOverflow.Ellipsis,
@@ -281,13 +181,13 @@ fun BasicReadMoreText(
         if (expanded.not()) {
             BasicText(
                 text = overflowText,
-                onTextLayout = onOverflowTextLayout,
+                onTextLayout = { state.onOverflowTextLayout(it) },
                 modifier = Modifier.notDraw(),
                 style = style
             )
             BasicText(
                 text = readMoreTextWithStyle,
-                onTextLayout = onReadMoreTextLayout,
+                onTextLayout = { state.onReadMoreTextLayout(it) },
                 modifier = Modifier.notDraw(),
                 style = style.merge(readMoreStyle)
             )
