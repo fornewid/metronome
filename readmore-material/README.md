@@ -1,4 +1,4 @@
-# ReadMoreText
+# ReadMoreText for Jetpack Compose (Material)
 
 <a href="https://jitpack.io/#fornewid/metronome"><img src="https://jitpack.io/v/fornewid/metronome.svg"/></a>
 
