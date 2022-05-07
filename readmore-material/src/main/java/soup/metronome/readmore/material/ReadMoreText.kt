@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.metronome.readmore
+package soup.metronome.readmore.material
 
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.material.LocalContentAlpha
@@ -34,6 +34,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
+import soup.metronome.readmore.BasicReadMoreText
 
 @Composable
 fun ReadMoreText(

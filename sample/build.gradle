@@ -44,6 +44,7 @@ dependencies {
     implementation project(':material')
     implementation project(':visibility')
     implementation project(':readmore')
+    implementation project(':readmore-material')
 
     implementation libs.androidx.activity.compose
     implementation libs.compose.foundation.foundation

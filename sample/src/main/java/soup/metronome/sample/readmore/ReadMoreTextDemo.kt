@@ -42,7 +42,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import soup.metronome.readmore.ReadMoreText
+import soup.metronome.readmore.material.ReadMoreText
 import soup.metronome.sample.theme.SampleTheme
 
 private const val description: String =
