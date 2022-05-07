@@ -92,6 +92,7 @@ private fun Item3() {
             .padding(18.dp)
             .animateContentSize(animationSpec = tween(durationMillis = 100)),
         readMoreText = "Read more",
+        readMoreColor = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
         readMoreMaxLines = 2
     )
 }

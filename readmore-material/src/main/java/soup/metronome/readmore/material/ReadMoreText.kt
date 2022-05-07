@@ -59,6 +59,11 @@ fun ReadMoreText(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = LocalTextStyle.current,
     readMoreText: String = "",
+    readMoreColor: Color = Color.Unspecified,
+    readMoreFontSize: TextUnit = TextUnit.Unspecified,
+    readMoreFontStyle: FontStyle? = null,
+    readMoreFontFamily: FontFamily? = null,
+    readMoreTextDecoration: TextDecoration? = null,
     readMoreMaxLines: Int = 2,
     readMoreStyle: SpanStyle = style.toSpanStyle(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -89,6 +94,15 @@ fun ReadMoreText(
     )
     val mergedReadMoreStyle = mergedStyle.toSpanStyle()
         .merge(readMoreStyle)
+        .merge(
+            SpanStyle(
+                color = readMoreColor,
+                fontSize = readMoreFontSize,
+                fontFamily = readMoreFontFamily,
+                textDecoration = readMoreTextDecoration,
+                fontStyle = readMoreFontStyle
+            )
+        )
     BasicReadMoreText(
         text = text,
         modifier = modifier,
@@ -126,6 +140,11 @@ fun ReadMoreText(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     style: TextStyle = LocalTextStyle.current,
     readMoreText: String = "",
+    readMoreColor: Color = Color.Unspecified,
+    readMoreFontSize: TextUnit = TextUnit.Unspecified,
+    readMoreFontStyle: FontStyle? = null,
+    readMoreFontFamily: FontFamily? = null,
+    readMoreTextDecoration: TextDecoration? = null,
     readMoreMaxLines: Int = 2,
     readMoreStyle: SpanStyle = style.toSpanStyle(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
@@ -156,6 +175,15 @@ fun ReadMoreText(
     )
     val mergedReadMoreStyle = mergedStyle.toSpanStyle()
         .merge(readMoreStyle)
+        .merge(
+            SpanStyle(
+                color = readMoreColor,
+                fontSize = readMoreFontSize,
+                fontFamily = readMoreFontFamily,
+                textDecoration = readMoreTextDecoration,
+                fontStyle = readMoreFontStyle
+            )
+        )
     BasicReadMoreText(
         text = text,
         modifier = modifier,
