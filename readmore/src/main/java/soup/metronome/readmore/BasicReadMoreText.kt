@@ -31,6 +31,29 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 
+/**
+ * Basic element that displays text with read more.
+ * Typically you will instead want to use [soup.metronome.readmore.material.ReadMoreText], which is
+ * a higher level Text element that contains semantics and consumes style information from a theme.
+ *
+ * @param text The text to be displayed.
+ * @param modifier [Modifier] to apply to this layout node.
+ * @param style Style configuration for the text such as color, font, line height etc.
+ * @param onTextLayout Callback that is executed when a new text layout is calculated. A
+ * [TextLayoutResult] object that callback provides contains paragraph information, size of the
+ * text, baselines and other details. The callback can be used to add additional decoration or
+ * functionality to the text. For example, to draw selection around the text.
+ * @param overflow How visual overflow should be handled in the collapsed state.
+ * @param softWrap Whether the text should break at soft line breaks. If false, the glyphs in the
+ * text will be positioned as if there was unlimited horizontal space. If [softWrap] is false,
+ * [overflow] and TextAlign may have unexpected effects.
+ * @param readMoreText The read more text to be displayed in the collapsed state.
+ * @param readMoreMaxLines An optional maximum number of lines for the text to span, wrapping if
+ * necessary. If the text exceeds the given number of lines, it will be truncated according to
+ * [overflow]. If it is not null, then it must be greater than zero.
+ * @param readMoreStyle Style configuration for the read more text such as color, font, line height
+ * etc.
+ */
 @Composable
 fun BasicReadMoreText(
     text: String,
@@ -112,6 +135,31 @@ fun BasicReadMoreText(
     }
 }
 
+/**
+ * Basic element that displays text with read more.
+ * Typically you will instead want to use [soup.metronome.readmore.material.ReadMoreText], which is
+ * a higher level Text element that contains semantics and consumes style information from a theme.
+ *
+ * @param text The text to be displayed.
+ * @param modifier [Modifier] to apply to this layout node.
+ * @param style Style configuration for the text such as color, font, line height etc.
+ * @param onTextLayout Callback that is executed when a new text layout is calculated. A
+ * [TextLayoutResult] object that callback provides contains paragraph information, size of the
+ * text, baselines and other details. The callback can be used to add additional decoration or
+ * functionality to the text. For example, to draw selection around the text.
+ * @param overflow How visual overflow should be handled in the collapsed state.
+ * @param softWrap Whether the text should break at soft line breaks. If false, the glyphs in the
+ * text will be positioned as if there was unlimited horizontal space. If [softWrap] is false,
+ * [overflow] and TextAlign may have unexpected effects.
+ * @param inlineContent A map store composables that replaces certain ranges of the text. It's
+ * used to insert composables into text layout. Check [InlineTextContent] for more information.
+ * @param readMoreText The read more text to be displayed in the collapsed state.
+ * @param readMoreMaxLines An optional maximum number of lines for the text to span, wrapping if
+ * necessary. If the text exceeds the given number of lines, it will be truncated according to
+ * [overflow]. If it is not null, then it must be greater than zero.
+ * @param readMoreStyle Style configuration for the read more text such as color, font, line height
+ * etc.
+ */
 @Composable
 fun BasicReadMoreText(
     text: AnnotatedString,
