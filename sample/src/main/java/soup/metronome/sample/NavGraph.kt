@@ -23,6 +23,7 @@ import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 import soup.metronome.sample.material.ChipDemo
 import soup.metronome.sample.material.UnelevatedButtonDemo
+import soup.metronome.sample.readmore.ReadMoreTextDemo
 import soup.metronome.sample.visibility.VisibilityDemo
 
 data class Destination(
@@ -32,9 +33,10 @@ data class Destination(
 ) {
     companion object {
         val all: List<Destination> = listOf(
-            Destination("ui:Visibility", "VisibilityDemo") { VisibilityDemo() },
+            Destination("visibility:Visibility", "VisibilityDemo") { VisibilityDemo() },
             Destination("material:UnelevatedButton", "UnelevatedButtonDemo") { UnelevatedButtonDemo() },
             Destination("material:Chip", "ChipDemo") { ChipDemo() },
+            Destination("readmore:ReadMoreText", "ReadMoreTextDemo") { ReadMoreTextDemo() },
         ).sortedBy { it.key }
     }
 }
