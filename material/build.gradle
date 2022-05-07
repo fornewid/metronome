@@ -50,7 +50,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.fornewid.metronome'
                 artifactId = 'material'
-                version = '0.3.1'
+                version = '0.3.2'
             }
         }
     }
