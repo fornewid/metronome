@@ -11,8 +11,8 @@ This library provides extension features that is not in the [Jetpack Compose](ht
 [Jetpack Compose](https://developer.android.com/jetpack/compose)
 
 - [material](https://github.com/fornewid/metronome/tree/main/material)
-   - [Chip](https://github.com/fornewid/metronome/blob/main/material/src/main/java/soup/compose/material/chip/Chip.kt)
-   - [UnelevatedButton](https://github.com/fornewid/metronome/blob/main/material/src/main/java/soup/compose/material/UnelevatedButton.kt)
+   - [Chip](https://github.com/fornewid/metronome/blob/main/material/src/main/java/soup/metronome/material/chip/Chip.kt)
+   - [UnelevatedButton](https://github.com/fornewid/metronome/blob/main/material/src/main/java/soup/metronome/material/UnelevatedButton.kt)
 - [visibility](https://github.com/fornewid/metronome/tree/main/visibility)
 
 
