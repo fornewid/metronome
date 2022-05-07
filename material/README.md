@@ -18,7 +18,7 @@ Depend on the [latest version](https://github.com/fornewid/metronome/releases) o
 
 ## Usage
 
-#### [Chip](https://github.com/fornewid/metronome/blob/main/material/src/main/java/soup/compose/material/chip/Chip.kt)
+#### [Chip](https://github.com/fornewid/metronome/blob/main/material/src/main/java/soup/metronome/material/chip/Chip.kt)
 
 ```kotlin
 @Composable
@@ -61,7 +61,7 @@ fun ChoiceChipSample() {
 }
 ```
 
-#### [UnelevatedButton](https://github.com/fornewid/metronome/blob/main/material/src/main/java/soup/compose/material/UnelevatedButton.kt)
+#### [UnelevatedButton](https://github.com/fornewid/metronome/blob/main/material/src/main/java/soup/metronome/material/UnelevatedButton.kt)
 
 ```kotlin
 @Composable
