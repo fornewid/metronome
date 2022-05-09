@@ -30,9 +30,8 @@ fun BasicReadMoreTextSample() {
         text = description,
         expanded = expanded,
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 18.dp, top = 5.dp, end = 18.dp, bottom = 18.dp)
-            .animateContentSize(animationSpec = tween(durationMillis = 100)),
+            .clickable { onExpandedChange(!expanded) }
+            .fillMaxWidth(),
         readMoreText = "Read more",
         readMoreMaxLines = 2,
         readMoreStyle = SpanStyle(
