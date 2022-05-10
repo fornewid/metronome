@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation libs.compose.material
+    implementation libs.compose.material3
     api project(':readmore')
 
     // ======================
@@ -50,7 +50,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.fornewid.metronome'
-                artifactId = 'readmore-material'
+                artifactId = 'readmore-material3'
                 version = '0.3.2'
             }
         }

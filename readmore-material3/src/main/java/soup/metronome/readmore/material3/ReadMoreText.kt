@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.metronome.readmore.material
+package soup.metronome.readmore.material3
 
 import androidx.compose.foundation.text.InlineTextContent
-import androidx.compose.material.LocalContentAlpha
-import androidx.compose.material.LocalContentColor
-import androidx.compose.material.LocalTextStyle
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.LocalContentColor
+import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -55,9 +53,7 @@ import soup.metronome.readmore.BasicReadMoreText
  * from [style] will be used instead.
  *
  * Additionally, for [color], if [color] is not set, and [style] does not have a color, then
- * [LocalContentColor] will be used with an alpha of [LocalContentAlpha]- this allows this
- * [Text] or element containing this [Text] to adapt to different background colors and still
- * maintain contrast and accessibility.
+ * [LocalContentColor] will be used.
  *
  * @param text The text to be displayed.
  * @param modifier [Modifier] to apply to this layout node.
@@ -134,7 +130,7 @@ fun ReadMoreText(
 ) {
     val textColor = color.takeOrElse {
         style.color.takeOrElse {
-            LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+            LocalContentColor.current
         }
     }
     // NOTE(text-perf-review): It might be worthwhile writing a bespoke merge implementation that
@@ -194,9 +190,7 @@ fun ReadMoreText(
  * from [style] will be used instead.
  *
  * Additionally, for [color], if [color] is not set, and [style] does not have a color, then
- * [LocalContentColor] will be used with an alpha of [LocalContentAlpha]- this allows this
- * [Text] or element containing this [Text] to adapt to different background colors and still
- * maintain contrast and accessibility.
+ * [LocalContentColor] will be used.
  *
  * @param text The text to be displayed.
  * @param modifier [Modifier] to apply to this layout node.
@@ -276,7 +270,7 @@ fun ReadMoreText(
 ) {
     val textColor = color.takeOrElse {
         style.color.takeOrElse {
-            LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+            LocalContentColor.current
         }
     }
     // NOTE(text-perf-review): It might be worthwhile writing a bespoke merge implementation that

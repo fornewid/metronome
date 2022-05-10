@@ -1,4 +1,4 @@
-# ReadMoreText for Jetpack Compose (Material)
+# ReadMoreText for Jetpack Compose (Material3)
 
 <a href="https://jitpack.io/#fornewid/metronome"><img src="https://jitpack.io/v/fornewid/metronome.svg"/></a>
 
@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.github.fornewid.metronome:readmore-material:<version>"
+    implementation "com.github.fornewid.metronome:readmore-material3:<version>"
 }
 ```
 
@@ -18,9 +18,9 @@ Depend on the [latest version](https://github.com/fornewid/metronome/releases) o
 
 ## Usage
 
-#### [ReadMoreText](https://github.com/fornewid/metronome/blob/main/readmore-material/src/main/java/soup/metronome/readmore/material/ReadMoreText.kt)
+#### [ReadMoreText](https://github.com/fornewid/metronome/blob/main/readmore-material3/src/main/java/soup/metronome/readmore/material3/ReadMoreText.kt)
 
-`ReadMoreText` is based on material theme like `androidx.compose.material.Text`.
+`ReadMoreText` is based on material3 theme like `androidx.compose.material3.Text`.
 
 ```kotlin
 @Composable

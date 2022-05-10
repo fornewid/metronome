@@ -30,7 +30,7 @@ android {
 }
 
 dependencies {
-    implementation libs.compose.material.material
+    implementation libs.compose.material
 
     // ======================
     // Test dependencies

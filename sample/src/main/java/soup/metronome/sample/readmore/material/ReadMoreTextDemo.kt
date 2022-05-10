@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package soup.metronome.sample.readmore
+package soup.metronome.sample.readmore.material
 
 import android.content.res.Configuration
 import androidx.compose.animation.animateContentSize
@@ -49,7 +49,7 @@ private const val description: String =
     "abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz,abcdefghijklmnopqrstuvwxyz."
 
 @Composable
-fun ReadMoreTextDemo() {
+fun Material_ReadMoreTextDemo() {
     Scaffold(
         topBar = { TopAppBar(title = { Text(text = "ReadMoreTextDemo") }) },
         content = {
@@ -197,6 +197,6 @@ private fun Item5() {
 @Composable
 private fun Preview() {
     SampleTheme {
-        ReadMoreTextDemo()
+        Material_ReadMoreTextDemo()
     }
 }
