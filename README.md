@@ -16,15 +16,6 @@ This library provides extension features that is not in the [Jetpack Compose](ht
 - [`Modifier.visible()`](https://github.com/fornewid/metronome/blob/main/visibility/src/main/java/soup/metronome/visibility/Visibility.kt)
 - [`Modifier.invisible()`](https://github.com/fornewid/metronome/blob/main/visibility/src/main/java/soup/metronome/visibility/Visibility.kt)
 
-### [readmore](https://github.com/fornewid/metronome/tree/main/readmore)
-- [`BasicReadMoreText`](https://github.com/fornewid/metronome/blob/main/readmore/src/main/java/soup/metronome/readmore/BasicReadMoreText.kt)
-
-### [readmore-material](https://github.com/fornewid/metronome/tree/main/readmore-material)
-- [`ReadMoreText`](https://github.com/fornewid/metronome/blob/main/readmore-material/src/main/java/soup/metronome/readmore/material/ReadMoreText.kt)
-
-### [readmore-material3](https://github.com/fornewid/metronome/tree/main/readmore-material3)
-- [`ReadMoreText`](https://github.com/fornewid/metronome/blob/main/readmore-material3/src/main/java/soup/metronome/readmore/material3/ReadMoreText.kt)
-
 ## License
 
 Licensed under the Apache 2.0 license. See [LICENSE](https://github.com/fornewid/metronome/blob/main/LICENSE) for details.
