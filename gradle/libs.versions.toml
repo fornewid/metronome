@@ -1,5 +1,5 @@
 [versions]
-compose = "1.2.0-beta01"
+compose = "1.2.0-beta02"
 
 ktlint = "0.41.0"
 kotlin = "1.6.21"
@@ -19,7 +19,6 @@ compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", ve
 compose-foundation-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose" }
 compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
-compose-material3 = "androidx.compose.material3:material3:1.0.0-alpha10"
 
 kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlin-pluginGradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -36,4 +35,4 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxt
 junit = "junit:junit:4.13"
 truth = "com.google.truth:truth:1.1.2"
 
-material-motion-compose = "io.github.fornewid:material-motion-compose-navigation:0.9.0-beta01"
+material-motion-compose = "io.github.fornewid:material-motion-compose-navigation:0.9.0-beta02"
