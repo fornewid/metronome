@@ -38,7 +38,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ProvideTextStyle
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
@@ -52,7 +51,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.compositeOver
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -82,7 +80,6 @@ fun EntryChip(
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.entryChipColors(),
-    rippleColor: Color = Color.Unspecified,
     contentPadding: PaddingValues = if (onCloseIconClick != null) {
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
@@ -102,7 +99,6 @@ fun EntryChip(
     shape = shape,
     border = border,
     colors = colors,
-    rippleColor = rippleColor,
     contentPadding = contentPadding,
     content = {
         Text(
@@ -138,7 +134,6 @@ fun EntryChip(
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.entryChipColors(),
-    rippleColor: Color = Color.Unspecified,
     contentPadding: PaddingValues = if (onCloseIconClick != null) {
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
@@ -165,7 +160,6 @@ fun EntryChip(
     shape = shape,
     border = border,
     colors = colors,
-    rippleColor = rippleColor,
     contentPadding = contentPadding,
     content = content
 )
@@ -195,7 +189,6 @@ fun FilterChip(
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.filterChipColors(),
-    rippleColor: Color = Color.Unspecified,
     contentPadding: PaddingValues = if (onCloseIconClick != null) {
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
@@ -215,7 +208,6 @@ fun FilterChip(
     shape = shape,
     border = border,
     colors = colors,
-    rippleColor = rippleColor,
     contentPadding = contentPadding,
     content = {
         Text(
@@ -251,7 +243,6 @@ fun FilterChip(
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.filterChipColors(),
-    rippleColor: Color = Color.Unspecified,
     contentPadding: PaddingValues = if (onCloseIconClick != null) {
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
@@ -277,7 +268,6 @@ fun FilterChip(
     shape = shape,
     border = border,
     colors = colors,
-    rippleColor = rippleColor,
     contentPadding = contentPadding,
     content = content
 )
@@ -306,7 +296,6 @@ fun ChoiceChip(
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.choiceChipColors(),
-    rippleColor: Color = MaterialTheme.colors.primary,
     contentPadding: PaddingValues = if (onCloseIconClick != null) {
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
@@ -325,7 +314,6 @@ fun ChoiceChip(
     shape = shape,
     border = border,
     colors = colors,
-    rippleColor = rippleColor,
     contentPadding = contentPadding,
     content = {
         Text(
@@ -346,7 +334,7 @@ fun ChoiceChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: @Composable() (() -> Unit)? = null,
+    chipIcon: @Composable (() -> Unit)? = null,
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
             contentDescription = null,
@@ -360,7 +348,6 @@ fun ChoiceChip(
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.choiceChipColors(),
-    rippleColor: Color = MaterialTheme.colors.primary,
     contentPadding: PaddingValues = if (onCloseIconClick != null) {
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
@@ -380,7 +367,6 @@ fun ChoiceChip(
     shape = shape,
     border = border,
     colors = colors,
-    rippleColor = rippleColor,
     contentPadding = contentPadding,
     content = content
 )
@@ -394,7 +380,7 @@ fun ActionChip(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: @Composable() (() -> Unit)? = null,
+    chipIcon: @Composable (() -> Unit)? = null,
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
             contentDescription = null,
@@ -408,7 +394,6 @@ fun ActionChip(
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.actionChipColors(),
-    rippleColor: Color = Color.Unspecified,
     contentPadding: PaddingValues = if (onCloseIconClick != null) {
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
@@ -426,7 +411,6 @@ fun ActionChip(
     shape = shape,
     border = border,
     colors = colors,
-    rippleColor = rippleColor,
     contentPadding = contentPadding,
     content = {
         Text(
@@ -446,7 +430,7 @@ fun ActionChip(
 fun ActionChip(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: @Composable() (() -> Unit)? = null,
+    chipIcon: @Composable (() -> Unit)? = null,
     closeIcon: @Composable () -> Unit = {
         ChipCloseIcon(
             contentDescription = null,
@@ -460,7 +444,6 @@ fun ActionChip(
     shape: Shape = ChipDefaults.Shape,
     border: BorderStroke? = null,
     colors: ChipColors = ChipDefaults.actionChipColors(),
-    rippleColor: Color = Color.Unspecified,
     contentPadding: PaddingValues = if (onCloseIconClick != null) {
         ChipDefaults.ContentPaddingWithCloseIcon
     } else {
@@ -480,7 +463,6 @@ fun ActionChip(
     shape = shape,
     border = border,
     colors = colors,
-    rippleColor = rippleColor,
     contentPadding = contentPadding,
     content = content
 )
@@ -491,7 +473,7 @@ private fun BasicChip(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
-    chipIcon: @Composable() (() -> Unit)?,
+    chipIcon: @Composable (() -> Unit)?,
     closeIcon: @Composable () -> Unit,
     onCloseIconClick: (() -> Unit)?,
     enabled: Boolean,
@@ -500,7 +482,6 @@ private fun BasicChip(
     shape: Shape,
     border: BorderStroke?,
     colors: ChipColors,
-    rippleColor: Color,
     contentPadding: PaddingValues,
     content: @Composable RowScope.() -> Unit
 ) {
@@ -515,7 +496,6 @@ private fun BasicChip(
         border = border,
         backgroundColor = colors.backgroundColor(enabled, checked).value,
         contentColor = contentColor,
-        rippleColor = rippleColor
     ) {
         Row(
             modifier = Modifier
@@ -562,7 +542,6 @@ private fun CoreChip(
     border: BorderStroke?,
     backgroundColor: Color,
     contentColor: Color,
-    rippleColor: Color,
     content: @Composable () -> Unit
 ) {
     Surface(
@@ -574,9 +553,7 @@ private fun CoreChip(
         elevation = elevation,
         onClick = { onClick() },
         enabled = enabled,
-        role = Role.Button,
         interactionSource = interactionSource,
-        indication = rememberRipple(color = rippleColor)
     ) {
         CompositionLocalProvider(LocalContentAlpha provides contentColor.alpha) {
             ProvideTextStyle(
