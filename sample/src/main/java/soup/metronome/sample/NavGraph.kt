@@ -23,8 +23,6 @@ import soup.compose.material.motion.navigation.composable
 import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
 import soup.metronome.sample.material.ChipDemo
 import soup.metronome.sample.material.UnelevatedButtonDemo
-import soup.metronome.sample.readmore.material.Material_ReadMoreTextDemo
-import soup.metronome.sample.readmore.material3.Material3_ReadMoreTextDemo
 import soup.metronome.sample.visibility.VisibilityDemo
 
 data class Destination(
@@ -39,12 +37,6 @@ data class Destination(
             },
             Destination("material:UnelevatedButton", "UnelevatedButtonDemo") {
                 UnelevatedButtonDemo()
-            },
-            Destination("readmore-material:ReadMoreText", "ReadMoreTextDemo") {
-                Material_ReadMoreTextDemo()
-            },
-            Destination("readmore-material3:ReadMoreText", "ReadMoreTextDemo") {
-                Material3_ReadMoreTextDemo()
             },
             Destination("visibility:Visibility", "VisibilityDemo") {
                 VisibilityDemo()

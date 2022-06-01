@@ -1,7 +1,4 @@
 include ':sample'
 include ':material'
-include ':readmore'
-include ':readmore-material'
-include ':readmore-material3'
 include ':visibility'
 include ':internal-testutils'
