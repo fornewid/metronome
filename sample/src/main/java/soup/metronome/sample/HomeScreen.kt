@@ -43,10 +43,10 @@ fun HomeScreen(items: List<Destination>, onItemClick: (Destination) -> Unit) {
         topBar = {
             TopAppBar(title = { Text(text = "Compose Extensions") })
         }
-    ) {
+    ) { paddingValues ->
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(vertical = 8.dp)
+            contentPadding = paddingValues
         ) {
             items(items) {
                 HomeMenuItem(it, onItemClick = onItemClick)
