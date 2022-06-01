@@ -1,14 +1,14 @@
 [versions]
-compose = "1.1.1"
+compose = "1.2.0-beta01"
 
 ktlint = "0.41.0"
-kotlin = "1.6.10"
+kotlin = "1.6.21"
 coroutines = "1.6.0"
 
 androidxtest = "1.4.0"
 
 [libraries]
-android-pluginGradle = "com.android.tools.build:gradle:7.2.0"
+android-pluginGradle = "com.android.tools.build:gradle:7.2.1"
 
 compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
@@ -36,4 +36,4 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxt
 junit = "junit:junit:4.13"
 truth = "com.google.truth:truth:1.1.2"
 
-material-motion-compose = "io.github.fornewid:material-motion-compose-navigation:0.8.4"
+material-motion-compose = "io.github.fornewid:material-motion-compose-navigation:0.9.0-beta01"
