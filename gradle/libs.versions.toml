@@ -1,5 +1,5 @@
 [versions]
-compose = "1.2.0-beta02"
+compose = "1.2.0-beta03"
 
 ktlint = "0.41.0"
 kotlin = "1.6.21"
@@ -35,4 +35,4 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxt
 junit = "junit:junit:4.13"
 truth = "com.google.truth:truth:1.1.2"
 
-material-motion-compose = "io.github.fornewid:material-motion-compose-navigation:0.9.0-beta02"
+material-motion-compose = "io.github.fornewid:material-motion-compose-navigation:0.9.0-beta03"
