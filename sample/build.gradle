@@ -45,10 +45,10 @@ dependencies {
     implementation project(':visibility')
 
     implementation libs.androidx.activity.compose
+    implementation libs.androidx.navigation.compose
     implementation libs.compose.foundation.foundation
     implementation libs.compose.material
     implementation libs.compose.ui.ui
     implementation libs.compose.ui.preview
     debugImplementation libs.compose.ui.tooling
-    implementation libs.material.motion.compose
 }

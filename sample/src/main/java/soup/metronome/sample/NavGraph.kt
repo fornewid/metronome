@@ -15,12 +15,11 @@
  */
 package soup.metronome.sample
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
-import soup.compose.material.motion.navigation.MaterialMotionNavHost
-import soup.compose.material.motion.navigation.composable
-import soup.compose.material.motion.navigation.rememberMaterialMotionNavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import soup.metronome.sample.material.ChipDemo
 import soup.metronome.sample.material.UnelevatedButtonDemo
 import soup.metronome.sample.visibility.VisibilityDemo
@@ -45,12 +44,11 @@ data class Destination(
     }
 }
 
-@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NavGraph() {
     val destinations = Destination.all
-    val navController = rememberMaterialMotionNavController()
-    MaterialMotionNavHost(navController = navController, startDestination = "home") {
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "home") {
         composable("home") {
             HomeScreen(
                 destinations,
