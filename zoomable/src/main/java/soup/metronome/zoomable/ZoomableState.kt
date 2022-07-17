@@ -27,6 +27,8 @@ import androidx.compose.runtime.saveable.listSaver
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.geometry.takeOrElse
 
 @Composable
 fun rememberZoomableState(
@@ -47,13 +49,16 @@ fun rememberZoomableState(
 class ZoomableState(
     @FloatRange(from = 1.0) currentScale: Float = 1f,
     currentOffset: Offset = Offset.Zero,
-    private val minimumScale: Float = 1f,
-    private val maximumScale: Float = 3f,
+    internal val minimumScale: Float = 1f,
+    internal val maximumScale: Float = 3f,
 ) {
+    internal var boxSize: Size = Size.Zero
+    var imageSize: Size = Size.Unspecified
+
     private var _currentScale by mutableStateOf(currentScale)
 
     @get:FloatRange(from = 1.0)
-    var currentScale: Float
+    internal var currentScale: Float
         get() = _currentScale
         internal set(value) {
             val coerceValue = value.coerceIn(minimumScale, maximumScale)
@@ -64,16 +69,20 @@ class ZoomableState(
 
     private var _currentOffset by mutableStateOf(currentOffset)
 
-    var currentOffset: Offset
+    internal var currentOffset: Offset
         get() = _currentOffset
         internal set(value) {
-            if (value != _currentOffset) {
-                _currentOffset = value
+            val image = imageSize.takeOrElse { boxSize }
+            val scrollableX = ((image.width * currentScale - boxSize.width) / 2).coerceAtLeast(0f)
+            val scrollableY = ((image.height * currentScale - boxSize.height) / 2).coerceAtLeast(0f)
+            val coerceValue = Offset(
+                value.x.coerceIn(-scrollableX, scrollableX),
+                value.y.coerceIn(-scrollableY, scrollableY),
+            )
+            if (coerceValue != _currentOffset) {
+                _currentOffset = coerceValue
             }
         }
-
-    val isMaximumScaled: Boolean
-        get() = currentScale >= maximumScale
 
     val isScaled: Boolean
         get() = currentScale != 1f || currentOffset != Offset.Zero

@@ -15,8 +15,11 @@
  */
 package soup.metronome.sample.zoomable
 
+import android.content.ContentResolver
 import android.content.res.Configuration
+import android.net.Uri
 import androidx.activity.compose.BackHandler
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -30,13 +33,9 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -55,29 +54,29 @@ fun ZoomableBoxDemo() {
         topBar = { TopAppBar(title = { Text(text = "ZoomableBoxDemo") }) }
     ) {
         BoxWithConstraints(modifier = Modifier.padding(it)) {
-            val zoomableStateForLocal: ZoomableState = rememberZoomableState()
-            val zoomableStateForRemote: ZoomableState = rememberZoomableState()
+            val zoomableStateWithDrawable: ZoomableState = rememberZoomableState()
+            val zoomableStateWithCoil: ZoomableState = rememberZoomableState()
             if (maxWidth < maxHeight) {
                 Column {
-                    ZoomableBoxWithLocalImage(
-                        zoomableState = zoomableStateForLocal,
+                    ZoomableBoxWithDrawable(
+                        zoomableState = zoomableStateWithDrawable,
                         modifier = Modifier.weight(1f)
                     )
                     Divider()
-                    ZoomableBoxWithRemoteImage(
-                        zoomableState = zoomableStateForRemote,
+                    ZoomableBoxWithCoil(
+                        zoomableState = zoomableStateWithCoil,
                         modifier = Modifier.weight(1f)
                     )
                 }
             } else {
                 Row {
-                    ZoomableBoxWithLocalImage(
-                        zoomableState = zoomableStateForLocal,
+                    ZoomableBoxWithDrawable(
+                        zoomableState = zoomableStateWithDrawable,
                         modifier = Modifier.weight(1f)
                     )
                     Divider(modifier = Modifier.width(1.dp).fillMaxHeight())
-                    ZoomableBoxWithRemoteImage(
-                        zoomableState = zoomableStateForRemote,
+                    ZoomableBoxWithCoil(
+                        zoomableState = zoomableStateWithCoil,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -87,7 +86,7 @@ fun ZoomableBoxDemo() {
 }
 
 @Composable
-private fun ZoomableBoxWithLocalImage(
+private fun ZoomableBoxWithDrawable(
     zoomableState: ZoomableState,
     modifier: Modifier = Modifier,
 ) {
@@ -98,21 +97,21 @@ private fun ZoomableBoxWithLocalImage(
         }
     }
     val painter = painterResource(R.drawable.wallpaper)
+    zoomableState.imageSize = painter.intrinsicSize
     ZoomableBox(
-        imageSize = painter.intrinsicSize,
-        state = zoomableState,
         modifier = modifier,
+        state = zoomableState,
     ) {
         Image(
             painter,
-            contentDescription = "local",
+            contentDescription = "drawable",
             modifier = Modifier.fillMaxSize(),
         )
     }
 }
 
 @Composable
-private fun ZoomableBoxWithRemoteImage(
+private fun ZoomableBoxWithCoil(
     zoomableState: ZoomableState,
     modifier: Modifier = Modifier,
 ) {
@@ -122,24 +121,33 @@ private fun ZoomableBoxWithRemoteImage(
             zoomableState.animateToMinimum()
         }
     }
-    var imageSize: Size by remember { mutableStateOf(Size.Zero) }
     ZoomableBox(
-        imageSize = imageSize,
-        state = zoomableState,
         modifier = modifier,
+        state = zoomableState,
     ) {
         AsyncImage(
-            "https://raw.githubusercontent.com/Baseflow/PhotoView/master/sample/src/main/res/drawable-nodpi/wallpaper.jpg",
-            contentDescription = "remote",
+            uriOf(R.drawable.wallpaper),
+            contentDescription = "coil",
             modifier = Modifier.fillMaxSize(),
             transform = {
                 if (it is AsyncImagePainter.State.Success) {
-                    imageSize = it.painter.intrinsicSize
+                    zoomableState.imageSize = it.painter.intrinsicSize
                 }
                 it
             }
         )
     }
+}
+
+@Composable
+private fun uriOf(@DrawableRes resId: Int): Uri {
+    val resources = LocalContext.current.resources
+    return Uri.Builder()
+        .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+        .authority(resources.getResourcePackageName(resId))
+        .appendPath(resources.getResourceTypeName(resId))
+        .appendPath(resources.getResourceEntryName(resId))
+        .build()
 }
 
 @Preview(name = "Light", showBackground = true)

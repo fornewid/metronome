@@ -22,17 +22,10 @@ import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.geometry.takeOrElse
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
@@ -43,39 +36,25 @@ import kotlinx.coroutines.launch
 fun ZoomableBox(
     modifier: Modifier = Modifier,
     state: ZoomableState = rememberZoomableState(),
-    imageSize: Size = Size.Unspecified,
     content: @Composable BoxScope.() -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    var box by remember { mutableStateOf(Size.Zero) }
-    val image = imageSize.takeOrElse { box }
     val transformableState = rememberTransformableState { zoomChange, offsetChange, _ ->
         state.currentScale *= zoomChange
-
-        val rangeW = ((image.width * state.currentScale - box.width) / 2).coerceAtLeast(0f)
-        val rangeH = ((image.height * state.currentScale - box.height) / 2).coerceAtLeast(0f)
-        state.currentOffset = Offset(
-            x = (state.currentOffset.x + offsetChange.x).coerceIn(-rangeW, rangeW),
-            y = (state.currentOffset.y + offsetChange.y).coerceIn(-rangeH, rangeH),
-        )
+        state.currentOffset += offsetChange
     }
     Box(
         modifier = modifier
-            .onSizeChanged { box = it.toSize() }
+            .onSizeChanged { state.boxSize = it.toSize() }
             .pointerInput(state.currentScale) {
-                val rangeW = ((image.width * state.currentScale - box.width) / 2).coerceAtLeast(0f)
-                val rangeH = ((image.height * state.currentScale - box.height) / 2).coerceAtLeast(0f)
                 detectDragGestures { _, dragAmount ->
-                    state.currentOffset = Offset(
-                        x = (state.currentOffset.x + dragAmount.x).coerceIn(-rangeW, rangeW),
-                        y = (state.currentOffset.y + dragAmount.y).coerceIn(-rangeH, rangeH),
-                    )
+                    state.currentOffset += dragAmount
                 }
             }
             .pointerInput(Unit) {
                 detectTapGestures(
                     onDoubleTap = {
-                        if (state.isMaximumScaled) {
+                        if (state.currentScale >= state.maximumScale) {
                             coroutineScope.launch {
                                 state.animateToMinimum()
                             }
