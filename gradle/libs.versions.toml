@@ -8,9 +8,12 @@ coroutines = "1.6.2"
 
 androidxtest = "1.4.0"
 
+coil = "2.1.0"
+
 [libraries]
 android-pluginGradle = "com.android.tools.build:gradle:7.2.1"
 
+compose-animation = { module = "androidx.compose.animation:animation", version.ref = "compose" }
 compose-ui-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-util = { module = "androidx.compose.ui:ui-util", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
@@ -36,3 +39,5 @@ androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxt
 
 junit = "junit:junit:4.13"
 truth = "com.google.truth:truth:1.1.2"
+
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
