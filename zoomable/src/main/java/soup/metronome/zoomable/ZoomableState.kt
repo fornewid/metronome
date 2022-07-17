@@ -30,6 +30,17 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.takeOrElse
 
+/**
+ * Creates a [ZoomableState] that is remembered across compositions.
+ *
+ * Changes to the provided values for [initialScale] will **not** result in the state being
+ * recreated or changed in any way if it has already
+ * been created.
+ *
+ * @param initialScale the initial value for [ZoomableState.currentScale]
+ * @param initialOffset the initial value for [ZoomableState.currentOffset]
+ */
+@ExperimentalZoomableApi
 @Composable
 fun rememberZoomableState(
     @FloatRange(from = 1.0) initialScale: Float = 1f,
@@ -45,15 +56,30 @@ fun rememberZoomableState(
     )
 }
 
+/**
+ * A state object that can be hoisted to control and observe scaling and scrolling for [ZoomableBox].
+ *
+ * In most cases, this will be created via [rememberZoomableState].
+ *
+ * @param currentScale the initial value for [ZoomableState.currentScale]
+ * @param currentOffset the initial value for [ZoomableState.currentOffset]
+ */
+@ExperimentalZoomableApi
 @Stable
 class ZoomableState(
     @FloatRange(from = 1.0) currentScale: Float = 1f,
     currentOffset: Offset = Offset.Zero,
-    internal val minimumScale: Float = 1f,
+    private val minimumScale: Float = 1f,
     internal val maximumScale: Float = 3f,
 ) {
+
     internal var boxSize: Size = Size.Zero
-    var imageSize: Size = Size.Unspecified
+
+    /**
+     * The intrinsic size of the content like image.
+     * If the value is set to [Size.Unspecified], it is assumed to be [boxSize].
+     */
+    var contentIntrinsicSize: Size = Size.Unspecified
 
     private var _currentScale by mutableStateOf(currentScale)
 
@@ -72,9 +98,9 @@ class ZoomableState(
     internal var currentOffset: Offset
         get() = _currentOffset
         internal set(value) {
-            val image = imageSize.takeOrElse { boxSize }
-            val scrollableX = ((image.width * currentScale - boxSize.width) / 2).coerceAtLeast(0f)
-            val scrollableY = ((image.height * currentScale - boxSize.height) / 2).coerceAtLeast(0f)
+            val content = contentIntrinsicSize.takeOrElse { boxSize }
+            val scrollableX = ((content.width * currentScale - boxSize.width) / 2).coerceAtLeast(0f)
+            val scrollableY = ((content.height * currentScale - boxSize.height) / 2).coerceAtLeast(0f)
             val coerceValue = Offset(
                 value.x.coerceIn(-scrollableX, scrollableX),
                 value.y.coerceIn(-scrollableY, scrollableY),
@@ -87,7 +113,10 @@ class ZoomableState(
     val isScaled: Boolean
         get() = currentScale != 1f || currentOffset != Offset.Zero
 
-    suspend fun animateToMinimum() {
+    /**
+     * Animate to the initial state.
+     */
+    suspend fun animateToInitialState() {
         val initialScale = currentScale
         val targetScale = minimumScale
         val initialOffset = currentOffset
@@ -103,11 +132,17 @@ class ZoomableState(
         }
     }
 
-    suspend fun animateToMaximum() {
+    /**
+     * Animate to the given scale to the center of the box.
+     *
+     * @param scale the scale to animate to. Must be between 1f and [maximumScale] (inclusive).
+     */
+    suspend fun animateScale(
+        @FloatRange(from = 1.0) scale: Float,
+    ) {
         val initialScale = currentScale
-        val targetScale = maximumScale
-        if (initialScale != targetScale) {
-            val diff = targetScale - initialScale
+        if (initialScale != scale) {
+            val diff = scale - initialScale
             val anim = AnimationState(initialValue = 0f)
             anim.animateTo(targetValue = 1f) {
                 currentScale = initialScale + diff * value

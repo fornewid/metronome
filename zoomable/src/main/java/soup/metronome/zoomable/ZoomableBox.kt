@@ -32,6 +32,7 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.unit.toSize
 import kotlinx.coroutines.launch
 
+@ExperimentalZoomableApi
 @Composable
 fun ZoomableBox(
     modifier: Modifier = Modifier,
@@ -54,13 +55,13 @@ fun ZoomableBox(
             .pointerInput(Unit) {
                 detectTapGestures(
                     onDoubleTap = {
-                        if (state.currentScale >= state.maximumScale) {
+                        if (state.isScaled) {
                             coroutineScope.launch {
-                                state.animateToMinimum()
+                                state.animateToInitialState()
                             }
                         } else {
                             coroutineScope.launch {
-                                state.animateToMaximum()
+                                state.animateScale(state.maximumScale)
                             }
                         }
                     }

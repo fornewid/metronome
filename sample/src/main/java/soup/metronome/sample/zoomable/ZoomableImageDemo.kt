@@ -44,10 +44,12 @@ import coil.compose.AsyncImagePainter
 import kotlinx.coroutines.launch
 import soup.metronome.sample.R
 import soup.metronome.sample.theme.SampleTheme
+import soup.metronome.zoomable.ExperimentalZoomableApi
 import soup.metronome.zoomable.ZoomableBox
 import soup.metronome.zoomable.ZoomableState
 import soup.metronome.zoomable.rememberZoomableState
 
+@OptIn(ExperimentalZoomableApi::class)
 @Composable
 fun ZoomableBoxDemo() {
     Scaffold(
@@ -85,6 +87,7 @@ fun ZoomableBoxDemo() {
     }
 }
 
+@OptIn(ExperimentalZoomableApi::class)
 @Composable
 private fun ZoomableBoxWithDrawable(
     zoomableState: ZoomableState,
@@ -93,11 +96,11 @@ private fun ZoomableBoxWithDrawable(
     val coroutineScope = rememberCoroutineScope()
     BackHandler(enabled = zoomableState.isScaled) {
         coroutineScope.launch {
-            zoomableState.animateToMinimum()
+            zoomableState.animateToInitialState()
         }
     }
     val painter = painterResource(R.drawable.wallpaper)
-    zoomableState.imageSize = painter.intrinsicSize
+    zoomableState.contentIntrinsicSize = painter.intrinsicSize
     ZoomableBox(
         modifier = modifier,
         state = zoomableState,
@@ -110,6 +113,7 @@ private fun ZoomableBoxWithDrawable(
     }
 }
 
+@OptIn(ExperimentalZoomableApi::class)
 @Composable
 private fun ZoomableBoxWithCoil(
     zoomableState: ZoomableState,
@@ -118,7 +122,7 @@ private fun ZoomableBoxWithCoil(
     val coroutineScope = rememberCoroutineScope()
     BackHandler(enabled = zoomableState.isScaled) {
         coroutineScope.launch {
-            zoomableState.animateToMinimum()
+            zoomableState.animateToInitialState()
         }
     }
     ZoomableBox(
@@ -131,7 +135,7 @@ private fun ZoomableBoxWithCoil(
             modifier = Modifier.fillMaxSize(),
             transform = {
                 if (it is AsyncImagePainter.State.Success) {
-                    zoomableState.imageSize = it.painter.intrinsicSize
+                    zoomableState.contentIntrinsicSize = it.painter.intrinsicSize
                 }
                 it
             }
