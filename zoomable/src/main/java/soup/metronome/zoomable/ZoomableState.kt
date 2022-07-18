@@ -17,7 +17,11 @@ package soup.metronome.zoomable
 
 import androidx.annotation.FloatRange
 import androidx.compose.animation.core.AnimationState
+import androidx.compose.animation.core.DecayAnimationSpec
+import androidx.compose.animation.core.VectorConverter
+import androidx.compose.animation.core.animateDecay
 import androidx.compose.animation.core.animateTo
+import androidx.compose.animation.core.exponentialDecay
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.getValue
@@ -110,6 +114,13 @@ class ZoomableState(
             }
         }
 
+    private fun isOutOfBounds(offset: Offset): Boolean {
+        val content = contentIntrinsicSize.takeOrElse { boxSize }
+        val scrollableX = ((content.width * currentScale - boxSize.width) / 2).coerceAtLeast(0f)
+        val scrollableY = ((content.height * currentScale - boxSize.height) / 2).coerceAtLeast(0f)
+        return offset.x !in -scrollableX..scrollableX && offset.y !in (-scrollableY..scrollableY)
+    }
+
     val isScaled: Boolean
         get() = currentScale != 1f || currentOffset != Offset.Zero
 
@@ -146,6 +157,25 @@ class ZoomableState(
             val anim = AnimationState(initialValue = 0f)
             anim.animateTo(targetValue = 1f) {
                 currentScale = initialScale + diff * value
+            }
+        }
+    }
+
+    internal suspend fun performFling(
+        initialVelocity: Offset,
+        decay: DecayAnimationSpec<Offset> = exponentialDecay(),
+    ) {
+        val initialValue = currentOffset
+        val anim = AnimationState(
+            typeConverter = Offset.VectorConverter,
+            initialValue = initialValue,
+            initialVelocity = initialVelocity,
+        )
+        anim.animateDecay(decay) {
+            currentOffset = value
+
+            if (isOutOfBounds(value) || velocity.getDistance() <= 3000) {
+                cancelAnimation()
             }
         }
     }
