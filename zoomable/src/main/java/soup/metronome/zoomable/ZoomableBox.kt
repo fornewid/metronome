@@ -26,6 +26,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onSizeChanged
@@ -37,36 +38,36 @@ import kotlinx.coroutines.launch
 fun ZoomableBox(
     modifier: Modifier = Modifier,
     state: ZoomableState = rememberZoomableState(),
+    enabled: Boolean = true,
     content: @Composable BoxScope.() -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()
     val transformableState = rememberTransformableState { zoomChange, offsetChange, _ ->
-        state.currentScale *= zoomChange
-        state.currentOffset += offsetChange
+        if (enabled) {
+            state.currentScale *= zoomChange
+            state.currentOffset += offsetChange
+        }
     }
     Box(
         modifier = modifier
             .onSizeChanged { state.boxSize = it.toSize() }
-            .pointerInput(state.currentScale) {
-                detectDragGestures { _, dragAmount ->
+            .pointerInputs(
+                enabled = enabled,
+                onDrag = { dragAmount ->
                     state.currentOffset += dragAmount
-                }
-            }
-            .pointerInput(Unit) {
-                detectTapGestures(
-                    onDoubleTap = {
-                        if (state.isScaled) {
-                            coroutineScope.launch {
-                                state.animateToInitialState()
-                            }
-                        } else {
-                            coroutineScope.launch {
-                                state.animateScale(state.maximumScale)
-                            }
+                },
+                onDoubleTap = {
+                    if (state.isScaled) {
+                        coroutineScope.launch {
+                            state.animateToInitialState()
+                        }
+                    } else {
+                        coroutineScope.launch {
+                            state.animateScale(state.maximumScale)
                         }
                     }
-                )
-            }
+                }
+            )
             .clipToBounds()
             .graphicsLayer {
                 scaleX = state.currentScale
@@ -79,4 +80,27 @@ fun ZoomableBox(
         propagateMinConstraints = false,
         content = content,
     )
+}
+
+private fun Modifier.pointerInputs(
+    enabled: Boolean,
+    onDrag: (dragAmount: Offset) -> Unit,
+    onDoubleTap: () -> Unit,
+): Modifier {
+    if (enabled.not()) {
+        return this
+    }
+    return this
+        .pointerInput(Unit) {
+            detectDragGestures { _, dragAmount ->
+                onDrag(dragAmount)
+            }
+        }
+        .pointerInput(Unit) {
+            detectTapGestures(
+                onDoubleTap = {
+                    onDoubleTap()
+                }
+            )
+        }
 }
