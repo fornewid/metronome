@@ -29,11 +29,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DoNotTouch
+import androidx.compose.material.icons.filled.Swipe
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -52,8 +61,28 @@ import soup.metronome.zoomable.rememberZoomableState
 @OptIn(ExperimentalZoomableApi::class)
 @Composable
 fun ZoomableBoxDemo() {
+    var enabled by remember { mutableStateOf(true) }
     Scaffold(
-        topBar = { TopAppBar(title = { Text(text = "ZoomableBoxDemo") }) }
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "ZoomableBoxDemo") },
+                actions = {
+                    IconButton(onClick = { enabled = !enabled }) {
+                        if (enabled) {
+                            Icon(
+                                Icons.Default.Swipe,
+                                contentDescription = "Touch",
+                            )
+                        } else {
+                            Icon(
+                                Icons.Default.DoNotTouch,
+                                contentDescription = "Do Not Touch",
+                            )
+                        }
+                    }
+                }
+            )
+        }
     ) {
         BoxWithConstraints(modifier = Modifier.padding(it)) {
             val zoomableStateWithDrawable: ZoomableState = rememberZoomableState()
@@ -62,11 +91,13 @@ fun ZoomableBoxDemo() {
                 Column {
                     ZoomableBoxWithDrawable(
                         zoomableState = zoomableStateWithDrawable,
+                        enabled = enabled,
                         modifier = Modifier.weight(1f)
                     )
                     Divider()
                     ZoomableBoxWithCoil(
                         zoomableState = zoomableStateWithCoil,
+                        enabled = enabled,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -74,11 +105,13 @@ fun ZoomableBoxDemo() {
                 Row {
                     ZoomableBoxWithDrawable(
                         zoomableState = zoomableStateWithDrawable,
+                        enabled = enabled,
                         modifier = Modifier.weight(1f)
                     )
                     Divider(modifier = Modifier.width(1.dp).fillMaxHeight())
                     ZoomableBoxWithCoil(
                         zoomableState = zoomableStateWithCoil,
+                        enabled = enabled,
                         modifier = Modifier.weight(1f)
                     )
                 }
@@ -91,10 +124,11 @@ fun ZoomableBoxDemo() {
 @Composable
 private fun ZoomableBoxWithDrawable(
     zoomableState: ZoomableState,
+    enabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    BackHandler(enabled = zoomableState.isScaled) {
+    BackHandler(enabled = enabled && zoomableState.isScaled) {
         coroutineScope.launch {
             zoomableState.animateToInitialState()
         }
@@ -104,6 +138,7 @@ private fun ZoomableBoxWithDrawable(
     ZoomableBox(
         modifier = modifier,
         state = zoomableState,
+        enabled = enabled,
     ) {
         Image(
             painter,
@@ -117,10 +152,11 @@ private fun ZoomableBoxWithDrawable(
 @Composable
 private fun ZoomableBoxWithCoil(
     zoomableState: ZoomableState,
+    enabled: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val coroutineScope = rememberCoroutineScope()
-    BackHandler(enabled = zoomableState.isScaled) {
+    BackHandler(enabled = enabled && zoomableState.isScaled) {
         coroutineScope.launch {
             zoomableState.animateToInitialState()
         }
@@ -128,6 +164,7 @@ private fun ZoomableBoxWithCoil(
     ZoomableBox(
         modifier = modifier,
         state = zoomableState,
+        enabled = enabled,
     ) {
         AsyncImage(
             uriOf(R.drawable.wallpaper),
