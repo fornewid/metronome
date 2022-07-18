@@ -52,10 +52,13 @@ fun ZoomableBox(
         modifier = modifier
             .onSizeChanged { state.boxSize = it.toSize() }
             .pointerInputs(
-                enabled = enabled,
+                enabled = enabled && state.isScaled,
                 onDrag = { dragAmount ->
                     state.currentOffset += dragAmount
                 },
+            )
+            .pointerInputs(
+                enabled = enabled,
                 onDoubleTap = {
                     if (state.isScaled) {
                         coroutineScope.launch {
@@ -85,22 +88,28 @@ fun ZoomableBox(
 private fun Modifier.pointerInputs(
     enabled: Boolean,
     onDrag: (dragAmount: Offset) -> Unit,
+): Modifier {
+    return pointerInput(enabled) {
+        if (enabled) {
+            detectDragGestures { _, dragAmount ->
+                onDrag(dragAmount)
+            }
+        }
+    }
+}
+
+private fun Modifier.pointerInputs(
+    enabled: Boolean,
     onDoubleTap: () -> Unit,
 ): Modifier {
     if (enabled.not()) {
         return this
     }
-    return this
-        .pointerInput(Unit) {
-            detectDragGestures { _, dragAmount ->
-                onDrag(dragAmount)
+    return pointerInput(Unit) {
+        detectTapGestures(
+            onDoubleTap = {
+                onDoubleTap()
             }
-        }
-        .pointerInput(Unit) {
-            detectTapGestures(
-                onDoubleTap = {
-                    onDoubleTap()
-                }
-            )
-        }
+        )
+    }
 }
