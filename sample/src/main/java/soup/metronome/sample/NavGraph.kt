@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import soup.metronome.sample.material.ChipDemo
 import soup.metronome.sample.material.UnelevatedButtonDemo
 import soup.metronome.sample.visibility.VisibilityDemo
+import soup.metronome.sample.zoomable.ZoomableBoxDemo
 
 data class Destination(
     val key: String,
@@ -39,6 +40,9 @@ data class Destination(
             },
             Destination("visibility:Visibility", "VisibilityDemo") {
                 VisibilityDemo()
+            },
+            Destination("zoomable:ZoomableBox", "ZoomableBoxDemo") {
+                ZoomableBoxDemo()
             },
         )
     }

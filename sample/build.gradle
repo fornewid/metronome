@@ -43,6 +43,7 @@ android {
 dependencies {
     implementation project(':material')
     implementation project(':visibility')
+    implementation project(':zoomable')
 
     implementation libs.androidx.activity.compose
     implementation libs.androidx.navigation.compose
@@ -51,4 +52,6 @@ dependencies {
     implementation libs.compose.ui.ui
     implementation libs.compose.ui.preview
     debugImplementation libs.compose.ui.tooling
+
+    implementation libs.coil.compose
 }
