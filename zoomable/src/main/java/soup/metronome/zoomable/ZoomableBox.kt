@@ -29,7 +29,10 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.util.VelocityTracker
+import androidx.compose.ui.input.pointer.util.addPointerInputChange
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.unit.Velocity
 import androidx.compose.ui.unit.toSize
 import kotlinx.coroutines.launch
 
@@ -55,6 +58,11 @@ fun ZoomableBox(
                 enabled = enabled && state.isScaled,
                 onDrag = { dragAmount ->
                     state.currentOffset += dragAmount
+                },
+                onDragStopped = { velocity ->
+                    coroutineScope.launch {
+                        state.performFling(Offset(velocity.x, velocity.y))
+                    }
                 },
             )
             .pointerInputs(
@@ -88,12 +96,25 @@ fun ZoomableBox(
 private fun Modifier.pointerInputs(
     enabled: Boolean,
     onDrag: (dragAmount: Offset) -> Unit,
+    onDragStopped: (velocity: Velocity) -> Unit,
 ): Modifier {
+    val velocityTracker = VelocityTracker()
     return pointerInput(enabled) {
         if (enabled) {
-            detectDragGestures { _, dragAmount ->
-                onDrag(dragAmount)
-            }
+            detectDragGestures(
+                onDrag = { change, dragAmount ->
+                    velocityTracker.addPointerInputChange(change)
+                    onDrag(dragAmount)
+                },
+                onDragEnd = {
+                    val velocity = velocityTracker.calculateVelocity()
+                    onDragStopped(velocity)
+                },
+                onDragCancel = {
+                    val velocity = velocityTracker.calculateVelocity()
+                    onDragStopped(velocity)
+                },
+            )
         }
     }
 }

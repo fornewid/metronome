@@ -47,7 +47,7 @@ import soup.metronome.zoomable.rememberZoomableState
     ExperimentalZoomableApi::class,
 )
 @Composable
-fun ZoomableBoxWithPagerDemo() {
+fun ZoomableBoxInPagerDemo() {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text(text = "ZoomableBoxWithPagerDemo") })
@@ -102,6 +102,6 @@ private fun Int.floorMod(other: Int): Int = when (other) {
 @Composable
 private fun Preview() {
     SampleTheme {
-        ZoomableBoxWithPagerDemo()
+        ZoomableBoxInPagerDemo()
     }
 }

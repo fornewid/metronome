@@ -24,7 +24,7 @@ import soup.metronome.sample.material.ChipDemo
 import soup.metronome.sample.material.UnelevatedButtonDemo
 import soup.metronome.sample.visibility.VisibilityDemo
 import soup.metronome.sample.zoomable.ZoomableBoxDemo
-import soup.metronome.sample.zoomable.ZoomableBoxWithPagerDemo
+import soup.metronome.sample.zoomable.ZoomableBoxInPagerDemo
 
 data class Destination(
     val key: String,
@@ -45,8 +45,8 @@ data class Destination(
             Destination("zoomable:ZoomableBox", "ZoomableBoxDemo") {
                 ZoomableBoxDemo()
             },
-            Destination("zoomable:ZoomableBox", "ZoomableBoxWithPagerDemo") {
-                ZoomableBoxWithPagerDemo()
+            Destination("zoomable:ZoomableBox+Pager", "ZoomableBoxInPagerDemo") {
+                ZoomableBoxInPagerDemo()
             },
         )
     }
