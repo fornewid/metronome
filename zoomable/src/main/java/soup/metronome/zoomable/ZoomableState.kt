@@ -32,7 +32,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.geometry.takeOrElse
+import androidx.compose.ui.geometry.isSpecified
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.times
 
 /**
  * Creates a [ZoomableState] that is remembered across compositions.
@@ -102,9 +104,7 @@ class ZoomableState(
     internal var currentOffset: Offset
         get() = _currentOffset
         internal set(value) {
-            val content = contentIntrinsicSize.takeOrElse { boxSize }
-            val scrollableX = ((content.width * currentScale - boxSize.width) / 2).coerceAtLeast(0f)
-            val scrollableY = ((content.height * currentScale - boxSize.height) / 2).coerceAtLeast(0f)
+            val (scrollableX, scrollableY) = calculateScrollableBounds()
             val coerceValue = Offset(
                 value.x.coerceIn(-scrollableX, scrollableX),
                 value.y.coerceIn(-scrollableY, scrollableY),
@@ -114,11 +114,17 @@ class ZoomableState(
             }
         }
 
-    private fun isOutOfBounds(offset: Offset): Boolean {
-        val content = contentIntrinsicSize.takeOrElse { boxSize }
-        val scrollableX = ((content.width * currentScale - boxSize.width) / 2).coerceAtLeast(0f)
-        val scrollableY = ((content.height * currentScale - boxSize.height) / 2).coerceAtLeast(0f)
-        return offset.x !in -scrollableX..scrollableX && offset.y !in (-scrollableY..scrollableY)
+    private fun calculateScrollableBounds(): Offset {
+        val content = if (contentIntrinsicSize.isSpecified) {
+            val contentScale = ContentScale.Fit
+            contentIntrinsicSize * contentScale.computeScaleFactor(contentIntrinsicSize, boxSize)
+        } else {
+            boxSize
+        }
+        return Offset(
+            x = ((content.width * currentScale - boxSize.width) / 2).coerceAtLeast(0f),
+            y = ((content.height * currentScale - boxSize.height) / 2).coerceAtLeast(0f),
+        )
     }
 
     val isScaled: Boolean
@@ -178,6 +184,11 @@ class ZoomableState(
                 cancelAnimation()
             }
         }
+    }
+
+    private fun isOutOfBounds(offset: Offset): Boolean {
+        val (scrollableX, scrollableY) = calculateScrollableBounds()
+        return offset.x !in -scrollableX..scrollableX && offset.y !in (-scrollableY..scrollableY)
     }
 
     companion object {
