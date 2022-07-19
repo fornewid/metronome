@@ -21,9 +21,15 @@ Depend on the [latest version](https://github.com/fornewid/metronome/releases) o
 ```kotlin
 @Composable
 fun ZoomableBoxSample() {
-    Text(
-        text = "Invisible Text",
-        modifier = Modifier.visible(visible = false)
-    )
+    val painter = painterResource(R.drawable.wallpaper)
+    val zoomableState = rememberZoomableState()
+    zoomableState.contentIntrinsicSize = painter.intrinsicSize
+    ZoomableBox(state = zoomableState) {
+        Image(
+            painter,
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+        )
+    }
 }
 ```
