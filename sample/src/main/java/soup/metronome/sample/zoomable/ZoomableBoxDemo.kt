@@ -136,8 +136,8 @@ private fun ZoomableBoxWithDrawable(
     val painter = painterResource(R.drawable.wallpaper)
     zoomableState.contentIntrinsicSize = painter.intrinsicSize
     ZoomableBox(
-        modifier = modifier,
         state = zoomableState,
+        modifier = modifier,
         enabled = enabled,
     ) {
         Image(
@@ -162,12 +162,12 @@ private fun ZoomableBoxWithCoil(
         }
     }
     ZoomableBox(
-        modifier = modifier,
         state = zoomableState,
+        modifier = modifier,
         enabled = enabled,
     ) {
         AsyncImage(
-            uriOf(R.drawable.wallpaper),
+            uriOf(R.drawable.poster),
             contentDescription = "coil",
             modifier = Modifier.fillMaxSize(),
             transform = {

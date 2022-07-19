@@ -39,8 +39,8 @@ import kotlinx.coroutines.launch
 @ExperimentalZoomableApi
 @Composable
 fun ZoomableBox(
+    state: ZoomableState,
     modifier: Modifier = Modifier,
-    state: ZoomableState = rememberZoomableState(),
     enabled: Boolean = true,
     content: @Composable BoxScope.() -> Unit,
 ) {
