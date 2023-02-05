@@ -1,4 +1,3 @@
 include ':sample'
 include ':visibility'
-include ':zoomable'
 include ':internal-testutils'
