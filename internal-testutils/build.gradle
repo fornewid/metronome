@@ -4,9 +4,11 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    namespace 'soup.metronome.internal.test'
+
+    compileSdk 33
     defaultConfig {
-        minSdkVersion 21
+        minSdk 21
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -27,6 +29,7 @@ dependencies {
     implementation libs.kotlin.stdlib
     implementation libs.kotlin.coroutines.android
 
+    implementation platform(libs.compose.bom)
     implementation libs.compose.foundation.foundation
     api libs.compose.ui.test.junit4
     api libs.androidx.test.core

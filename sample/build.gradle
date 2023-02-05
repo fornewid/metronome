@@ -4,11 +4,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    namespace 'soup.metronome.sample'
+
+    compileSdk 33
     defaultConfig {
         applicationId "soup.metronome.sample"
-        minSdkVersion 21
-        targetSdkVersion 32
+        minSdk 21
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -43,6 +45,7 @@ android {
 dependencies {
     implementation project(':visibility')
 
+    implementation platform(libs.compose.bom)
     implementation libs.androidx.activity.compose
     implementation libs.androidx.navigation.compose
     implementation libs.compose.foundation.foundation

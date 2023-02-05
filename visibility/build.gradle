@@ -5,10 +5,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    namespace 'soup.metronome.visibility'
+
+    compileSdk 33
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 32
+        minSdk 21
+        targetSdk 33
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
@@ -35,6 +37,7 @@ android {
 }
 
 dependencies {
+    implementation platform(libs.compose.bom)
     implementation libs.compose.ui.ui
     implementation libs.compose.ui.util
 
