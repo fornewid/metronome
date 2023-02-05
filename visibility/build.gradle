@@ -64,7 +64,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.fornewid.metronome'
                 artifactId = 'visibility'
-                version = '0.5.2'
+                version = '0.5.3'
             }
         }
     }
