@@ -20,8 +20,6 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import soup.metronome.sample.material.ChipDemo
-import soup.metronome.sample.material.UnelevatedButtonDemo
 import soup.metronome.sample.visibility.VisibilityDemo
 import soup.metronome.sample.zoomable.ZoomableBoxDemo
 import soup.metronome.sample.zoomable.ZoomableBoxInPagerDemo
@@ -33,12 +31,6 @@ data class Destination(
 ) {
     companion object {
         val all: List<Destination> = listOf(
-            Destination("material:Chip", "ChipDemo") {
-                ChipDemo()
-            },
-            Destination("material:UnelevatedButton", "UnelevatedButtonDemo") {
-                UnelevatedButtonDemo()
-            },
             Destination("visibility:Visibility", "VisibilityDemo") {
                 VisibilityDemo()
             },

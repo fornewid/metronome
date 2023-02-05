@@ -41,7 +41,6 @@ android {
 }
 
 dependencies {
-    implementation project(':material')
     implementation project(':visibility')
     implementation project(':zoomable')
 
