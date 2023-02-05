@@ -21,8 +21,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import soup.metronome.sample.visibility.VisibilityDemo
-import soup.metronome.sample.zoomable.ZoomableBoxDemo
-import soup.metronome.sample.zoomable.ZoomableBoxInPagerDemo
 
 data class Destination(
     val key: String,
@@ -33,12 +31,6 @@ data class Destination(
         val all: List<Destination> = listOf(
             Destination("visibility:Visibility", "VisibilityDemo") {
                 VisibilityDemo()
-            },
-            Destination("zoomable:ZoomableBox", "ZoomableBoxDemo") {
-                ZoomableBoxDemo()
-            },
-            Destination("zoomable:ZoomableBox+Pager", "ZoomableBoxInPagerDemo") {
-                ZoomableBoxInPagerDemo()
             },
         )
     }

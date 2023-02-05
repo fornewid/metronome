@@ -11,9 +11,6 @@ This library provides extension features that is not in the [Jetpack Compose](ht
 - [`Modifier.visible()`](https://github.com/fornewid/metronome/blob/main/visibility/src/main/java/soup/metronome/visibility/Visibility.kt)
 - [`Modifier.invisible()`](https://github.com/fornewid/metronome/blob/main/visibility/src/main/java/soup/metronome/visibility/Visibility.kt)
 
-### [zoomable](https://github.com/fornewid/metronome/tree/main/zoomable)
-- [`ZoomableBox`](https://github.com/fornewid/metronome/blob/main/zoomable/src/main/java/soup/metronome/zoomable/ZoomableBox.kt)
-
 ## License
 
 Licensed under the Apache 2.0 license. See [LICENSE](https://github.com/fornewid/metronome/blob/main/LICENSE) for details.
